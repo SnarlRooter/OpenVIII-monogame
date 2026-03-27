@@ -1,0 +1,1313 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A5408515-75B8-4EEA-8E9F-2C9CD7B56E59}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OpenVIII.Core</RootNamespace>
+    <AssemblyName>Core</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugWindows|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\bin\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;_WINDOWS;_X64</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugWindows|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\bin\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;_WINDOWS;_X86</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseWindows|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\bin\</OutputPath>
+    <DefineConstants>TRACE;_WINDOWS;_X64</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseWindows|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\bin\</OutputPath>
+    <DefineConstants>TRACE;_WINDOWS</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseLinux|x64'">
+    <OutputPath>..\bin\</OutputPath>
+    <DefineConstants>TRACE;_X64</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <LangVersion>latest</LangVersion>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseLinux|x86'">
+    <OutputPath>..\bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>latest</LangVersion>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugLinux|x64'">
+    <OutputPath>..\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;_X64</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugLinux|x86'">
+    <OutputPath>..\bin\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FFmpeg.AutoGen, Version=4.3.0.1, Culture=neutral, PublicKeyToken=9b7632533a381715, processorArchitecture=MSIL">
+      <HintPath>..\packages\FFmpeg.AutoGen.4.3.0.1\lib\net472\FFmpeg.AutoGen.dll</HintPath>
+    </Reference>
+    <Reference Include="ImGui.NET, Version=1.75.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ImGui.NET.1.75.0\lib\netstandard2.0\ImGui.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoGame.Framework, Version=3.7.1.189, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MonoGame.Framework.DesktopGL.3.7.1.189\lib\net45\MonoGame.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio, Version=1.10.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.1.10.0\lib\net35\NAudio.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.Vorbis, Version=1.2.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.Vorbis.1.2.0\lib\net45\NAudio.Vorbis.dll</HintPath>
+    </Reference>
+    <Reference Include="netstandard">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="K4os.Compression.LZ4, Version=1.1.11.0, Culture=neutral, PublicKeyToken=2186fa9121ef231d, processorArchitecture=MSIL">
+      <HintPath>..\packages\K4os.Compression.LZ4.1.1.11\lib\net46\K4os.Compression.LZ4.dll</HintPath>
+    </Reference>
+    <Reference Include="NVorbis, Version=0.10.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NVorbis.0.10.1\lib\net45\NVorbis.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Console, Version=4.0.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Console.4.3.1\lib\net46\System.Console.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.AppContext, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.AppContext.4.3.0\lib\net46\System.AppContext.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Globalization.Calendars, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Globalization.Calendars.4.3.0\lib\net46\System.Globalization.Calendars.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Compression.ZipFile, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.ZipFile.4.3.0\lib\net46\System.IO.Compression.ZipFile.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.4.3.0\lib\net46\System.IO.FileSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.FileSystem.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.FileSystem.Primitives.4.3.0\lib\net46\System.IO.FileSystem.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Sockets, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.Sockets.4.3.0\lib\net46\System.Net.Sockets.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.3.1\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.7.1\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.1\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.2\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.ReaderWriter, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Xml.ReaderWriter.4.3.1\lib\net46\System.Xml.ReaderWriter.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Archive\Archive.cs" />
+    <Compile Include="Archive\ArchiveBase.cs" />
+    <Compile Include="Archive\ArchiveMap.cs" />
+    <Compile Include="Archive\Archives.cs" />
+    <Compile Include="Archive\ArchiveWorker.cs" />
+    <Compile Include="Archive\CompressionType.cs" />
+    <Compile Include="Archive\FI.cs" />
+    <Compile Include="Archive\FL.cs" />
+    <Compile Include="Archive\ZZZ\ArchiveZZZ.cs" />
+    <Compile Include="Archive\BufferWithAge.cs" />
+    <Compile Include="Archive\ZZZ\FileData.cs" />
+    <Compile Include="Archive\ZZZ\Header.cs" />
+    <Compile Include="Archive\StreamWithRangeValues.cs" />
+    <Compile Include="AV\Audio.cs" />
+    <Compile Include="AV\BufferData.cs" />
+    <Compile Include="AV\Music\Midi\MidiFile.cs" />
+    <Compile Include="AV\Movie\Directories.cs" />
+    <Compile Include="AV\Movie\Files.cs" />
+    <Compile Include="AV\Music\Midi\MidiProcessor.cs" />
+    <Compile Include="AV\Music\Midi\Fluid.cs" />
+    <Compile Include="AV\Music\Midi\DirectMedia.cs" />
+    <Compile Include="AV\Movie\Player.cs" />
+    <Compile Include="AV\Movie\State.cs" />
+    <Compile Include="AV\Music\Music.cs" />
+    <Compile Include="AV\Sound\Entry.cs" />
+    <Compile Include="AV\Sound\Sound.cs" />
+    <Compile Include="AV\Video.cs" />
+    <Compile Include="Battle\AnimationSystem.cs" />
+    <Compile Include="Battle\BattleModule.cs" />
+    <Compile Include="Battle\BattleSwirl.cs" />
+    <Compile Include="Battle\Dat\CharacterData.cs" />
+    <Compile Include="Battle\Characters\CharacterInstanceInformation.cs" />
+    <Compile Include="Battle\Dat\Animation.cs" />
+    <Compile Include="Battle\Dat\AnimationData.cs" />
+    <Compile Include="Battle\Dat\AnimationFrame.cs" />
+    <Compile Include="Battle\Dat\AnimationSequence.cs" />
+    <Compile Include="Battle\Dat\AnimationYOffset.cs" />
+    <Compile Include="Battle\Dat\Bone.cs" />
+    <Compile Include="Battle\Dat\CharacterDatFile.cs" />
+    <Compile Include="Battle\Dat\DatHeader.cs" />
+    <Compile Include="Battle\Dat\DatFile.cs" />
+    <Compile Include="Battle\Dat\KernelFlag.cs" />
+    <Compile Include="Battle\Dat\MonsterDatFile.cs" />
+    <Compile Include="Battle\Dat\EntityType.cs" />
+    <Compile Include="Battle\Dat\Geometry.cs" />
+    <Compile Include="Battle\Dat\Object.cs" />
+    <Compile Include="Battle\Dat\Quad.cs" />
+    <Compile Include="Battle\Dat\Sections.cs" />
+    <Compile Include="Battle\Dat\Skeleton.cs" />
+    <Compile Include="Battle\Dat\Textures.cs" />
+    <Compile Include="Battle\Dat\Triangle.cs" />
+    <Compile Include="Battle\Dat\UV.cs" />
+    <Compile Include="Battle\Dat\VectorBoneGRP.cs" />
+    <Compile Include="Battle\Dat\Vertex.cs" />
+    <Compile Include="Battle\Dat\VertexData.cs" />
+    <Compile Include="Battle\Dat\VertexPositionTexturePointersGRP.cs" />
+    <Compile Include="Battle\Dat\WeaponDatFile.cs" />
+    <Compile Include="Battle\Encounters\Coordinate.cs" />
+    <Compile Include="Battle\DeadTime.cs" />
+    <Compile Include="Battle\Dat\VertexPositionTexturePointersGRPExt.cs" />
+    <Compile Include="Battle\Encounters\Encounter.cs" />
+    <Compile Include="Battle\Encounters\EncounterFlag.cs" />
+    <Compile Include="Battle\Encounters\Encounters.cs" />
+    <Compile Include="Battle\Dat\Abilities.cs" />
+    <Compile Include="Battle\Enemies\Enemy.cs" />
+    <Compile Include="Battle\Encounters\EnemyCoordinates.cs" />
+    <Compile Include="Battle\Enemies\EnemyInstanceInformation.cs" />
+    <Compile Include="Battle\Dat\Flag1.cs" />
+    <Compile Include="Battle\Dat\Flag2.cs" />
+    <Compile Include="Battle\Dat\Magic.cs" />
+    <Compile Include="Battle\Dat\UnkFlag.cs" />
+    <Compile Include="Battle\FPS_Camera.cs" />
+    <Compile Include="Battle\Enemies\IEnemy.cs" />
+    <Compile Include="Battle\Dat\Information.cs" />
+    <Compile Include="Battle\Mag\BinReaderExt.cs" />
+    <Compile Include="Battle\Stage\GPU.cs" />
+    <Compile Include="BinaryReaderExt.cs" />
+    <Compile Include="Battle\Mag\Geometry.cs" />
+    <Compile Include="Battle\InitDebuggerBattle.cs" />
+    <Compile Include="Battle\Mag\Mag.cs" />
+    <Compile Include="Battle\Menu\BattleMenu.cs" />
+    <Compile Include="Battle\Menu\BattleMenus.cs" />
+    <Compile Include="Battle\Menu\IGMDataItem\Gradient\ATB.cs" />
+    <Compile Include="Battle\Menu\IGMDataItem\Gradient\GF.cs" />
+    <Compile Include="Battle\Menu\IGMDataItem\Gradient\Renzokuken.cs" />
+    <Compile Include="Battle\Menu\IGMData\Group\PlayerEXP.cs" />
+    <Compile Include="Battle\Menu\IGMData\NamesHPATB.cs" />
+    <Compile Include="Battle\Menu\IGMData\PartyAP.cs" />
+    <Compile Include="Battle\Menu\IGMData\PartyItems.cs" />
+    <Compile Include="Battle\Menu\IGMData\PlayerEXP.cs" />
+    <Compile Include="Battle\Menu\IGMData\Pool\Bullet.cs" />
+    <Compile Include="Battle\Menu\IGMData\Pool\Combine.cs" />
+    <Compile Include="Battle\Menu\IGMData\Selphie_Slots.cs" />
+    <Compile Include="Battle\Menu\IGMData\Limit\Shot.cs" />
+    <Compile Include="Battle\Menu\IGMData\Target\Enemies.cs" />
+    <Compile Include="Battle\Menu\IGMData\Target\Group.cs" />
+    <Compile Include="Battle\Menu\IGMData\Limit\Renzokuken.cs" />
+    <Compile Include="Battle\Menu\IGMData\Target\Party.cs" />
+    <Compile Include="Battle\Menu\IGMData\Target\Random.cs" />
+    <Compile Include="Battle\Camera\BattleCameraCollection.cs" />
+    <Compile Include="Battle\Camera\BattleCameraSet.cs" />
+    <Compile Include="Battle\Camera\BattleCameraSettings.cs" />
+    <Compile Include="Battle\Camera\Camera.cs" />
+    <Compile Include="Battle\Camera\CameraSetAnimGRP.cs" />
+    <Compile Include="Battle\Camera\CameraStruct.cs" />
+    <Compile Include="Battle\Stage\Animation.cs" />
+    <Compile Include="Battle\Stage\GeometryInfoSupplier.cs" />
+    <Compile Include="Battle\Stage\GeometryVertexPosition.cs" />
+    <Compile Include="Battle\Stage\MainGeometrySection.cs" />
+    <Compile Include="Battle\Stage\Model.cs" />
+    <Compile Include="Battle\Stage\ModelGroup.cs" />
+    <Compile Include="Battle\RegularPyramid.cs" />
+    <Compile Include="Battle\Stage\ObjectsGroup.cs" />
+    <Compile Include="Battle\Stage\Polygon.cs" />
+    <Compile Include="Battle\Stage\Quad.cs" />
+    <Compile Include="Battle\Stage\Stage.cs" />
+    <Compile Include="Battle\Stage\TextureAnimation.cs" />
+    <Compile Include="Battle\Stage\Triangle.cs" />
+    <Compile Include="Battle\Stage\Vertex.cs" />
+    <Compile Include="Card_Game\Card_Game.cs" />
+    <Compile Include="Card_Game\EXE_Offsets.cs" />
+    <Compile Include="Card_Game\Faces.cs" />
+    <Compile Include="CountDown.cs" />
+    <Compile Include="DrawVertDeclaration.cs" />
+    <Compile Include="Field\Archive.cs" />
+    <Compile Include="Field\Camera\Camera.cs" />
+    <Compile Include="Field\Camera\Cameras.cs" />
+    <Compile Include="Field\Core\NamedEntity.cs" />
+    <Compile Include="Field\EnumFlagExt.cs" />
+    <Compile Include="Field\Field_modes.cs" />
+    <Compile Include="Field\INF\Gateway.cs" />
+    <Compile Include="Field\INF\Gateways.cs" />
+    <Compile Include="Field\INF\INF.cs" />
+    <Compile Include="Field\INF\Trigger.cs" />
+    <Compile Include="Field\INF\Triggers.cs" />
+    <Compile Include="Field\JSM\Instructions\Abstract\ANIME.cs" />
+    <Compile Include="Field\JSM\Instructions\Abstract\ANIMELOOP.cs" />
+    <Compile Include="Field\JSM\Instructions\Abstract\BGANIME.cs" />
+    <Compile Include="Field\JSM\Instructions\Abstract\KEY.cs" />
+    <Compile Include="Field\JSM\Instructions\Abstract\PREQ.cs" />
+    <Compile Include="Field\JSM\Instructions\Abstract\REQ.cs" />
+    <Compile Include="Field\JSM\Instructions\Abstract\TURN.cs" />
+    <Compile Include="Field\JSM\Instructions\ANGELODISABLE.cs" />
+    <Compile Include="Field\JSM\Instructions\HASITEM.cs" />
+    <Compile Include="Field\Menu\FieldDebugControls.cs" />
+    <Compile Include="Field\Menu\FieldMenu.cs" />
+    <Compile Include="Field\MrtRat.cs" />
+    <Compile Include="Field\MSK.cs" />
+    <Compile Include="Field\PMP.cs" />
+    <Compile Include="Field\Sections.cs" />
+    <Compile Include="Field\SFX.cs" />
+    <Compile Include="Field\Toggles.cs" />
+    <Compile Include="Field\WalkMesh\Access.cs" />
+    <Compile Include="Field\Background\Background.cs" />
+    <Compile Include="Field\Background\BackgroundTextureType.cs" />
+    <Compile Include="Field\Background\BlendMode.cs" />
+    <Compile Include="Field\Initializer.cs" />
+    <Compile Include="Field\Module.cs" />
+    <Compile Include="Field\module_field_object_test.cs" />
+    <Compile Include="Field\ONE\FieldCharaOne.cs" />
+    <Compile Include="Field\Background\TextureIDPaletteID.cs" />
+    <Compile Include="Field\Background\Tile.cs" />
+    <Compile Include="Field\Background\TileQuadTexture.cs" />
+    <Compile Include="Field\Background\Tiles.cs" />
+    <Compile Include="Field\WalkMesh\Vert.cs" />
+    <Compile Include="Field\WalkMesh\WalkMesh.cs" />
+    <Compile Include="FPSCounter.cs" />
+    <Compile Include="GameDirectoryFinder.cs" />
+    <Compile Include="Image\Bppflag.cs" />
+    <Compile Include="Image\Cluts.cs" />
+    <Compile Include="Image\ColorABGR1555.cs" />
+    <Compile Include="Image\TDW.cs" />
+    <Compile Include="Image\Texture2DWrapper.cs" />
+    <Compile Include="Image\TextureBuffer.cs" />
+    <Compile Include="Image\Texture_Base.cs" />
+    <Compile Include="Image\TIMOverture.cs" />
+    <Compile Include="ImGuiRenderer.cs" />
+    <Compile Include="Input\Buttons.cs" />
+    <Compile Include="Input\ButtonTrigger.cs" />
+    <Compile Include="Input\Button_Flags.cs" />
+    <Compile Include="Input\Input2.cs" />
+    <Compile Include="Input\InputActions.cs" />
+    <Compile Include="Input\InputButton.cs" />
+    <Compile Include="Input\InputGamePad.cs" />
+    <Compile Include="Input\InputKeyboard.cs" />
+    <Compile Include="Input\InputMouse.cs" />
+    <Compile Include="Input\Inputs.cs" />
+    <Compile Include="Input\Inputs_FF7PSX.cs" />
+    <Compile Include="Input\Inputs_FF82000.cs" />
+    <Compile Include="Input\Inputs_FF8PSX.cs" />
+    <Compile Include="Input\Inputs_FF8Steam.cs" />
+    <Compile Include="Input\Inputs_OpenVIII.cs" />
+    <Compile Include="Input\MouseLockMode.cs" />
+    <Compile Include="Kernel\Abilities\Ability.cs" />
+    <Compile Include="Kernel\Abilities\AbilityFlags4.cs" />
+    <Compile Include="Kernel\Abilities\IAbility.cs" />
+    <Compile Include="Kernel\Commands\ICommand.cs" />
+    <Compile Include="Kernel\Limit\BlueMagic.cs" />
+    <Compile Include="Kernel\Unlocker.cs" />
+    <Compile Include="Log.cs" />
+    <Compile Include="Menu\Debug\Debug_Menu.cs" />
+    <Compile Include="Menu\Debug\IGMData\DebugSelectPool.cs" />
+    <Compile Include="Menu\IGMDataItem\Base.cs" />
+    <Compile Include="Menu\IGMDataItem\Box.cs" />
+    <Compile Include="Menu\IGMDataItem\Empty.cs" />
+    <Compile Include="Menu\IGMDataItem\Face.cs" />
+    <Compile Include="Menu\IGMDataItem\HelpBox.cs" />
+    <Compile Include="Menu\IGMDataItem\Icon.cs" />
+    <Compile Include="Menu\IGMDataItem\Integer.cs" />
+    <Compile Include="Menu\IGMDataItem\I_Color.cs" />
+    <Compile Include="Menu\IGMDataItem\I_Data.cs" />
+    <Compile Include="Menu\IGMDataItem\I_FontColor.cs" />
+    <Compile Include="Menu\IGMDataItem\I_Palette.cs" />
+    <Compile Include="Menu\IGMDataItem\Text.cs" />
+    <Compile Include="Menu\IGMDataItem\Texture.cs" />
+    <Compile Include="Menu\IGMDataItem\Texture_Handler.cs" />
+    <Compile Include="Menu\IGMData\Base.cs" />
+    <Compile Include="Menu\IGMData\Commands.cs" />
+    <Compile Include="Menu\IGMData\Dialog\Confirm.cs" />
+    <Compile Include="Menu\IGMData\Dialog\Small.cs" />
+    <Compile Include="Menu\IGMData\Dialog\Timed\Small.cs" />
+    <Compile Include="Menu\IGMData\Group\Base.cs" />
+    <Compile Include="Menu\IGMData\Group\TopMenu.cs" />
+    <Compile Include="Menu\IGMData\Pool\Base.cs" />
+    <Compile Include="Battle\Menu\IGMData\Pool\EnemyAttacks.cs" />
+    <Compile Include="Menu\IGMData\Pool\GF.cs" />
+    <Compile Include="Menu\IGMData\Pool\Magic\Commands.cs" />
+    <Compile Include="Menu\IGMData\Pool\Magic.cs" />
+    <Compile Include="Menu\IGMData\Pool\Item.cs" />
+    <Compile Include="Menu\IGMData\Pool\Draw.cs" />
+    <Compile Include="Menu\IGMData\Pool\Draw\Commands.cs" />
+    <Compile Include="Menu\IGMData\Pool\BlueMagic.cs" />
+    <Compile Include="Menu\Junction\IGMData\Slots\Abilities.cs" />
+    <Compile Include="Menu\Junction\IGMData\Slots\Command.cs" />
+    <Compile Include="Menu\Images\BigTexProps.cs" />
+    <Compile Include="Menu\Images\HSL.cs" />
+    <Compile Include="Menu\Images\TexProps.cs" />
+    <Compile Include="Menu\Images\VertexPositionTexture_Texture2D.cs" />
+    <Compile Include="Menu\LGSG\IGMData\GameBlock.cs" />
+    <Compile Include="Menu\LGSG\IGMData\GameChoose.cs" />
+    <Compile Include="Menu\LGSG\IGMData\SlotChoose.cs" />
+    <Compile Include="Menu\LGSG\IGMLoadSaveGame.cs" />
+    <Compile Include="Menu\LGSG\IGMData\LoadBarBox.cs" />
+    <Compile Include="Menu\LGSG\IGMData\ThreePieceHeader.cs" />
+    <Compile Include="Menu\Lobby\IGMData_Selections.cs" />
+    <Compile Include="Battle\Menu\VictoryMenu.cs" />
+    <Compile Include="Battle\ModuleBattle.cs" />
+    <Compile Include="Battle\ModuleBattleDebug.cs" />
+    <Compile Include="Characters.cs" />
+    <Compile Include="DictionaryEx.cs" />
+    <Compile Include="Image\Entry.cs" />
+    <Compile Include="Image\EntryGroup.cs" />
+    <Compile Include="ExtapathyExtended.cs" />
+    <Compile Include="Extended.cs" />
+    <Compile Include="Menu\Images\Box_Options.cs" />
+    <Compile Include="Menu\Lobby\IGM_Lobby.cs" />
+    <Compile Include="Menu\MenuModule.cs" />
+    <Compile Include="Menu\Menu_Base.cs" />
+    <Compile Include="Menu\Debug\IGMData\DebugChoose.cs" />
+    <Compile Include="Saves\Angelo.cs" />
+    <Compile Include="Saves\ATBTimer.cs" />
+    <Compile Include="Saves\CompatibilitywithGF.cs" />
+    <Compile Include="Saves\Damageable.cs" />
+    <Compile Include="Saves\ICharacterData.cs" />
+    <Compile Include="Saves\IDamageable.cs" />
+    <Compile Include="Saves\Saves.Configuration.cs" />
+    <Compile Include="Saves\TTCardInfo.cs" />
+    <Compile Include="Slide.cs" />
+    <Compile Include="Strings\Description.cs" />
+    <Compile Include="Strings\FF8String.cs" />
+    <Compile Include="Strings\FF8StringReference.cs" />
+    <Compile Include="AV\Ffcc.cs" />
+    <Compile Include="AV\FfccVariableGroup.cs" />
+    <Compile Include="FFmpegBinariesHelper.cs" />
+    <Compile Include="Field\Core\BreakAwaitable.cs" />
+    <Compile Include="Field\Core\Coords3D.cs" />
+    <Compile Include="Field\Core\Degrees.cs" />
+    <Compile Include="Field\Core\DummyAwaitable.cs" />
+    <Compile Include="Field\Core\DummyAwaiter.cs" />
+    <Compile Include="Field\Core\EventEngine.cs" />
+    <Compile Include="Field\Core\FieldId.cs" />
+    <Compile Include="Field\Core\FieldName.cs" />
+    <Compile Include="Field\Core\FieldObject.cs" />
+    <Compile Include="Field\Core\FieldObjectAnimation.cs" />
+    <Compile Include="Field\Core\FieldObjectModel.cs" />
+    <Compile Include="Field\Core\FieldObjectScripts.cs" />
+    <Compile Include="Field\Core\FieldObjectSound.cs" />
+    <Compile Include="Field\Core\GlobalVariableId.cs" />
+    <Compile Include="Field\Core\IAwaitable.cs" />
+    <Compile Include="Field\Core\IAwaiter.cs" />
+    <Compile Include="Field\Core\IScriptExecutor.cs" />
+    <Compile Include="Field\Core\MovieName.cs" />
+    <Compile Include="Field\Core\MusicId.cs" />
+    <Compile Include="Field\Core\MusicName.cs" />
+    <Compile Include="Field\Core\ScriptResultId.cs" />
+    <Compile Include="Field\Core\Services\Implementation\FieldService.cs" />
+    <Compile Include="Field\Core\Services\Implementation\GameplayService.cs" />
+    <Compile Include="Field\Core\Services\Implementation\GlobalVariableService.cs" />
+    <Compile Include="Field\Core\Services\Implementation\InteractionService.cs" />
+    <Compile Include="Field\Core\Services\Implementation\MenuService.cs" />
+    <Compile Include="Field\Core\Services\Implementation\MessageService.cs" />
+    <Compile Include="Field\Core\Services\Implementation\MovieService.cs" />
+    <Compile Include="Field\Core\Services\Implementation\MusicService.cs" />
+    <Compile Include="Field\Core\Services\Implementation\PartyService.cs" />
+    <Compile Include="Field\Core\Services\Implementation\RenderingService.cs" />
+    <Compile Include="Field\Core\Services\Implementation\SalaryService.cs" />
+    <Compile Include="Field\Core\Services\Implementation\SoundService.cs" />
+    <Compile Include="Field\Core\Services\Interfaces\IDialogService.cs" />
+    <Compile Include="Field\Core\Services\Interfaces\IFieldObjectService.cs" />
+    <Compile Include="Field\Core\Services\Interfaces\IGameplayService.cs" />
+    <Compile Include="Field\Core\Services\Interfaces\IGlobalVariableService.cs" />
+    <Compile Include="Field\Core\Services\Interfaces\IInteractionService.cs" />
+    <Compile Include="Field\Core\Services\Interfaces\IMenuService.cs" />
+    <Compile Include="Field\Core\Services\Interfaces\IMovieService.cs" />
+    <Compile Include="Field\Core\Services\Interfaces\IMusicService.cs" />
+    <Compile Include="Field\Core\Services\Interfaces\IPartyService.cs" />
+    <Compile Include="Field\Core\Services\Interfaces\IRenderingService.cs" />
+    <Compile Include="Field\Core\Services\Interfaces\ISalaryService.cs" />
+    <Compile Include="Field\Core\Services\Interfaces\ISoundService.cs" />
+    <Compile Include="Field\Core\Services\ServiceId.cs" />
+    <Compile Include="Field\Core\Services\ServiceProvider.cs" />
+    <Compile Include="Field\Core\SoundEffectName.cs" />
+    <Compile Include="Field\Core\SpinAwaitable.cs" />
+    <Compile Include="Field\Core\WalkMeshCoords.cs" />
+    <Compile Include="Field\Fields\DataProvider\Field.FsDataProvider.cs" />
+    <Compile Include="Field\Fields\DataProvider\Field.IDataProvider.cs" />
+    <Compile Include="Field\Fields\Field.FieldPart.cs" />
+    <Compile Include="Field\Fields\Field.Info.cs" />
+    <Compile Include="Field\Fields\LookupService\Field.FSLookupService.cs" />
+    <Compile Include="Field\Fields\LookupService\Field.ILookupService.cs" />
+    <Compile Include="ExceptionExtensionMethods.cs" />
+    <Compile Include="Field\Framework\EnumerableExtensionMethods.cs" />
+    <Compile Include="IListExtensionMethods.cs" />
+    <Compile Include="Field\Framework\IStack.cs" />
+    <Compile Include="OrderedDictionary.cs" />
+    <Compile Include="Field\Framework\PriorityQueue.cs" />
+    <Compile Include="Field\Framework\Rnd.cs" />
+    <Compile Include="Field\JSM\Control\IJsmControl.cs" />
+    <Compile Include="Field\JSM\Control\Jsm.Control.Builder.cs" />
+    <Compile Include="Field\JSM\Control\Jsm.Control.Goto.cs" />
+    <Compile Include="Field\JSM\Control\Jsm.Control.If.cs" />
+    <Compile Include="Field\JSM\Control\Jsm.Control.If.ElseIfSegment.cs" />
+    <Compile Include="Field\JSM\Control\Jsm.Control.If.ElseSegment.cs" />
+    <Compile Include="Field\JSM\Control\Jsm.Control.If.Executer.cs" />
+    <Compile Include="Field\JSM\Control\Jsm.Control.If.IfSegment.cs" />
+    <Compile Include="Field\JSM\Control\Jsm.Control.ProcessedJumps.cs" />
+    <Compile Include="Field\JSM\Control\Jsm.Control.While.cs" />
+    <Compile Include="Field\JSM\Control\Jsm.Control.While.Executer.cs" />
+    <Compile Include="Field\JSM\Control\Jsm.ExecutableSegment.cs" />
+    <Compile Include="Field\JSM\Control\Jsm.Segment.Builder.cs" />
+    <Compile Include="Field\JSM\Control\Jsm.Segment.cs" />
+    <Compile Include="Field\JSM\Execution\StatelessServices.cs" />
+    <Compile Include="Field\JSM\Expressions\IJsmExpression.cs" />
+    <Compile Include="Field\JSM\Expressions\Jsm.Expression.CAL.cs" />
+    <Compile Include="Field\JSM\Expressions\Jsm.Expression.PSHAC.cs" />
+    <Compile Include="Field\JSM\Expressions\Jsm.Expression.PSHI_L.cs" />
+    <Compile Include="Field\JSM\Expressions\Jsm.Expression.PSHM_B.cs" />
+    <Compile Include="Field\JSM\Expressions\Jsm.Expression.PSHM_L.cs" />
+    <Compile Include="Field\JSM\Expressions\Jsm.Expression.PSHM_W.cs" />
+    <Compile Include="Field\JSM\Expressions\Jsm.Expression.PSHN_L.cs" />
+    <Compile Include="Field\JSM\Expressions\Jsm.Expression.PSHSM_B.cs" />
+    <Compile Include="Field\JSM\Expressions\Jsm.Expression.PSHSM_L.cs" />
+    <Compile Include="Field\JSM\Expressions\Jsm.Expression.PSHSM_W.cs" />
+    <Compile Include="Field\JSM\Expressions\Jsm.Expression.TryMake.cs" />
+    <Compile Include="Field\JSM\Expressions\Jsm.Expression.ValueExpression.cs" />
+    <Compile Include="Field\JSM\File\Jsm.File.Group.cs" />
+    <Compile Include="Field\JSM\File\Jsm.File.Header.cs" />
+    <Compile Include="Field\JSM\File\Jsm.File.Operation.cs" />
+    <Compile Include="Field\JSM\File\Jsm.File.Reader.cs" />
+    <Compile Include="Field\JSM\File\Jsm.File.Script.cs" />
+    <Compile Include="Field\JSM\File\Jsm.GameObject.cs" />
+    <Compile Include="Field\JSM\File\Jsm.GameScript.cs" />
+    <Compile Include="Field\JSM\File\Jsm.IndexedInstruction.cs" />
+    <Compile Include="Field\JSM\File\Jsm.InstructionMerger.cs" />
+    <Compile Include="Field\JSM\File\Jsm.LabelBuilder.cs" />
+    <Compile Include="Field\JSM\File\Jsm.LabeledStack.cs" />
+    <Compile Include="Field\JSM\Format\DummyFormatterContext.cs" />
+    <Compile Include="Field\JSM\Format\FormatHelper.cs" />
+    <Compile Include="Field\JSM\Format\IFormattableScript.cs" />
+    <Compile Include="Field\JSM\Format\IScriptFormatterContext.cs" />
+    <Compile Include="Field\JSM\Format\ScriptWriter.cs" />
+    <Compile Include="Field\JSM\Instructions\AASK.cs" />
+    <Compile Include="Field\JSM\Instructions\ACTORMODE.cs" />
+    <Compile Include="Field\JSM\Instructions\ADDGIL.cs" />
+    <Compile Include="Field\JSM\Instructions\ADDITEM.cs" />
+    <Compile Include="Field\JSM\Instructions\ADDMAGIC.cs" />
+    <Compile Include="Field\JSM\Instructions\ADDMEMBER.cs" />
+    <Compile Include="Field\JSM\Instructions\ADDPARTY.cs" />
+    <Compile Include="Field\JSM\Instructions\ADDPASTGIL.cs" />
+    <Compile Include="Field\JSM\Instructions\ADDSEEDLEVEL.cs" />
+    <Compile Include="Field\JSM\Instructions\ALLSEPOS.cs" />
+    <Compile Include="Field\JSM\Instructions\ALLSEPOSTRANS.cs" />
+    <Compile Include="Field\JSM\Instructions\ALLSEVOL.cs" />
+    <Compile Include="Field\JSM\Instructions\ALLSEVOLTRANS.cs" />
+    <Compile Include="Field\JSM\Instructions\AMES.cs" />
+    <Compile Include="Field\JSM\Instructions\AMESW.cs" />
+    <Compile Include="Field\JSM\Instructions\ANIME.cs" />
+    <Compile Include="Field\JSM\Instructions\ANIMEKEEP.cs" />
+    <Compile Include="Field\JSM\Instructions\ANIMESPEED.cs" />
+    <Compile Include="Field\JSM\Instructions\ANIMESTOP.cs" />
+    <Compile Include="Field\JSM\Instructions\ANIMESYNC.cs" />
+    <Compile Include="Field\JSM\Instructions\ASK.cs" />
+    <Compile Include="Field\JSM\Instructions\AXIS.cs" />
+    <Compile Include="Field\JSM\Instructions\AXISSYNC.cs" />
+    <Compile Include="Field\JSM\Instructions\BASEANIME.cs" />
+    <Compile Include="Field\JSM\Instructions\BATTLE.cs" />
+    <Compile Include="Field\JSM\Instructions\BATTLECUT.cs" />
+    <Compile Include="Field\JSM\Instructions\BATTLEMODE.cs" />
+    <Compile Include="Field\JSM\Instructions\BATTLEOFF.cs" />
+    <Compile Include="Field\JSM\Instructions\BATTLEON.cs" />
+    <Compile Include="Field\JSM\Instructions\BATTLERESULT.cs" />
+    <Compile Include="Field\JSM\Instructions\BGANIME.cs" />
+    <Compile Include="Field\JSM\Instructions\BGANIMEFLAG.cs" />
+    <Compile Include="Field\JSM\Instructions\BGANIMESPEED.cs" />
+    <Compile Include="Field\JSM\Instructions\BGANIMESYNC.cs" />
+    <Compile Include="Field\JSM\Instructions\BGCLEAR.cs" />
+    <Compile Include="Field\JSM\Instructions\BGDRAW.cs" />
+    <Compile Include="Field\JSM\Instructions\BGOFF.cs" />
+    <Compile Include="Field\JSM\Instructions\BGSHADE.cs" />
+    <Compile Include="Field\JSM\Instructions\BGSHADEOFF.cs" />
+    <Compile Include="Field\JSM\Instructions\BGSHADESTOP.cs" />
+    <Compile Include="Field\JSM\Instructions\BLINKEYES.cs" />
+    <Compile Include="Field\JSM\Instructions\BROKEN.cs" />
+    <Compile Include="Field\JSM\Instructions\CANIME.cs" />
+    <Compile Include="Field\JSM\Instructions\CANIMEKEEP.cs" />
+    <Compile Include="Field\JSM\Instructions\CARDGAME.cs" />
+    <Compile Include="Field\JSM\Instructions\CHANGEPARTY.cs" />
+    <Compile Include="Field\JSM\Instructions\CHOICEMUSIC.cs" />
+    <Compile Include="Field\JSM\Instructions\CLEAR.cs" />
+    <Compile Include="Field\JSM\Instructions\CLOSEEYES.cs" />
+    <Compile Include="Field\JSM\Instructions\CMOVE.cs" />
+    <Compile Include="Field\JSM\Instructions\COFFSET.cs" />
+    <Compile Include="Field\JSM\Instructions\COFFSETS.cs" />
+    <Compile Include="Field\JSM\Instructions\COLSYNC.cs" />
+    <Compile Include="Field\JSM\Instructions\COPYINFO.cs" />
+    <Compile Include="Field\JSM\Instructions\CROSSMUSIC.cs" />
+    <Compile Include="Field\JSM\Instructions\CSCROLL.cs" />
+    <Compile Include="Field\JSM\Instructions\CSCROLL2.cs" />
+    <Compile Include="Field\JSM\Instructions\CSCROLL3.cs" />
+    <Compile Include="Field\JSM\Instructions\CSCROLLA.cs" />
+    <Compile Include="Field\JSM\Instructions\CSCROLLA2.cs" />
+    <Compile Include="Field\JSM\Instructions\CSCROLLP.cs" />
+    <Compile Include="Field\JSM\Instructions\CSCROLLP2.cs" />
+    <Compile Include="Field\JSM\Instructions\CTURN.cs" />
+    <Compile Include="Field\JSM\Instructions\CTURNL.cs" />
+    <Compile Include="Field\JSM\Instructions\CTURNR.cs" />
+    <Compile Include="Field\JSM\Instructions\DCOLADD.cs" />
+    <Compile Include="Field\JSM\Instructions\DCOLSUB.cs" />
+    <Compile Include="Field\JSM\Instructions\DEBUG.cs" />
+    <Compile Include="Field\JSM\Instructions\DIR.cs" />
+    <Compile Include="Field\JSM\Instructions\DIRA.cs" />
+    <Compile Include="Field\JSM\Instructions\DIRP.cs" />
+    <Compile Include="Field\JSM\Instructions\DISC.cs" />
+    <Compile Include="Field\JSM\Instructions\DISCJUMP.cs" />
+    <Compile Include="Field\JSM\Instructions\DISPBAR.cs" />
+    <Compile Include="Field\JSM\Instructions\DISPTIMER.cs" />
+    <Compile Include="Field\JSM\Instructions\DOFFSET.cs" />
+    <Compile Include="Field\JSM\Instructions\DOORLINEOFF.cs" />
+    <Compile Include="Field\JSM\Instructions\DOORLINEON.cs" />
+    <Compile Include="Field\JSM\Instructions\DRAWPOINT.cs" />
+    <Compile Include="Field\JSM\Instructions\DSCROLL.cs" />
+    <Compile Include="Field\JSM\Instructions\DSCROLL2.cs" />
+    <Compile Include="Field\JSM\Instructions\DSCROLL3.cs" />
+    <Compile Include="Field\JSM\Instructions\DSCROLLA.cs" />
+    <Compile Include="Field\JSM\Instructions\DSCROLLA2.cs" />
+    <Compile Include="Field\JSM\Instructions\DSCROLLP.cs" />
+    <Compile Include="Field\JSM\Instructions\DSCROLLP2.cs" />
+    <Compile Include="Field\JSM\Instructions\DUALMUSIC.cs" />
+    <Compile Include="Field\JSM\Instructions\DYING.cs" />
+    <Compile Include="Field\JSM\Instructions\EFFECTLOAD.cs" />
+    <Compile Include="Field\JSM\Instructions\EFFECTPLAY.cs" />
+    <Compile Include="Field\JSM\Instructions\EFFECTPLAY2.cs" />
+    <Compile Include="Field\JSM\Instructions\ENDING.cs" />
+    <Compile Include="Field\JSM\Instructions\FACEDIR.cs" />
+    <Compile Include="Field\JSM\Instructions\FACEDIRA.cs" />
+    <Compile Include="Field\JSM\Instructions\FACEDIRI.cs" />
+    <Compile Include="Field\JSM\Instructions\FACEDIRINIT.cs" />
+    <Compile Include="Field\JSM\Instructions\FACEDIRLIMIT.cs" />
+    <Compile Include="Field\JSM\Instructions\FACEDIROFF.cs" />
+    <Compile Include="Field\JSM\Instructions\FACEDIRP.cs" />
+    <Compile Include="Field\JSM\Instructions\FACEDIRSYNC.cs" />
+    <Compile Include="Field\JSM\Instructions\FADEBLACK.cs" />
+    <Compile Include="Field\JSM\Instructions\FADEIN.cs" />
+    <Compile Include="Field\JSM\Instructions\FADENONE.cs" />
+    <Compile Include="Field\JSM\Instructions\FADEOUT.cs" />
+    <Compile Include="Field\JSM\Instructions\FADESYNC.cs" />
+    <Compile Include="Field\JSM\Instructions\FCOLADD.cs" />
+    <Compile Include="Field\JSM\Instructions\FCOLSUB.cs" />
+    <Compile Include="Field\JSM\Instructions\FMOVE.cs" />
+    <Compile Include="Field\JSM\Instructions\FMOVEA.cs" />
+    <Compile Include="Field\JSM\Instructions\FMOVEP.cs" />
+    <Compile Include="Field\JSM\Instructions\FOLLOWOFF.cs" />
+    <Compile Include="Field\JSM\Instructions\FOLLOWON.cs" />
+    <Compile Include="Field\JSM\Instructions\FOOTSTEP.cs" />
+    <Compile Include="Field\JSM\Instructions\FOOTSTEPCOPY.cs" />
+    <Compile Include="Field\JSM\Instructions\FOOTSTEPCUT.cs" />
+    <Compile Include="Field\JSM\Instructions\FOOTSTEPOFF.cs" />
+    <Compile Include="Field\JSM\Instructions\FOOTSTEPOFFALL.cs" />
+    <Compile Include="Field\JSM\Instructions\FOOTSTEPON.cs" />
+    <Compile Include="Field\JSM\Instructions\GAMEOVER.cs" />
+    <Compile Include="Field\JSM\Instructions\GETCARD.cs" />
+    <Compile Include="Field\JSM\Instructions\GETDRESS.cs" />
+    <Compile Include="Field\JSM\Instructions\GETHP.cs" />
+    <Compile Include="Field\JSM\Instructions\GETINFO.cs" />
+    <Compile Include="Field\JSM\Instructions\GETPARTY.cs" />
+    <Compile Include="Field\JSM\Instructions\GETTIMER.cs" />
+    <Compile Include="Field\JSM\Instructions\GJMP.cs" />
+    <Compile Include="Field\JSM\Instructions\HALT.cs" />
+    <Compile Include="Field\JSM\Instructions\HIDE.cs" />
+    <Compile Include="Field\JSM\Instructions\HOLD.cs" />
+    <Compile Include="Field\JSM\Instructions\HOWMANYCARD.cs" />
+    <Compile Include="Field\JSM\Instructions\IDLOCK.cs" />
+    <Compile Include="Field\JSM\Instructions\IDUNLOCK.cs" />
+    <Compile Include="Field\JSM\Instructions\IJsmInstruction.cs" />
+    <Compile Include="Field\JSM\Instructions\IJumpToInstruction.cs" />
+    <Compile Include="Field\JSM\Instructions\IJumpToOpcode.cs" />
+    <Compile Include="Field\JSM\Instructions\INITSOUND.cs" />
+    <Compile Include="Field\JSM\Instructions\INITTRACE.cs" />
+    <Compile Include="Field\JSM\Instructions\IRET.cs" />
+    <Compile Include="Field\JSM\Instructions\ISMEMBER.cs" />
+    <Compile Include="Field\JSM\Instructions\ISPARTY.cs" />
+    <Compile Include="Field\JSM\Instructions\ISTOUCH.cs" />
+    <Compile Include="Field\JSM\Instructions\JMP.cs" />
+    <Compile Include="Field\JSM\Instructions\JOIN.cs" />
+    <Compile Include="Field\JSM\Instructions\JPF.cs" />
+    <Compile Include="Field\JSM\Instructions\JsmInstruction.cs" />
+    <Compile Include="Field\JSM\Instructions\JUMP.cs" />
+    <Compile Include="Field\JSM\Instructions\JUMP3.cs" />
+    <Compile Include="Field\JSM\Instructions\JUNCTION.cs" />
+    <Compile Include="Field\JSM\Instructions\KEY.cs" />
+    <Compile Include="Field\JSM\Instructions\KEYON.cs" />
+    <Compile Include="Field\JSM\Instructions\KEYON2.cs" />
+    <Compile Include="Field\JSM\Instructions\KEYSCAN.cs" />
+    <Compile Include="Field\JSM\Instructions\KEYSCAN2.cs" />
+    <Compile Include="Field\JSM\Instructions\KEYSIGHNCHANGE.cs" />
+    <Compile Include="Field\JSM\Instructions\KILLBAR.cs" />
+    <Compile Include="Field\JSM\Instructions\KILLTIMER.cs" />
+    <Compile Include="Field\JSM\Instructions\LADDERANIME.cs" />
+    <Compile Include="Field\JSM\Instructions\LADDERDOWN.cs" />
+    <Compile Include="Field\JSM\Instructions\LADDERDOWN2.cs" />
+    <Compile Include="Field\JSM\Instructions\LADDERUP.cs" />
+    <Compile Include="Field\JSM\Instructions\LADDERUP2.cs" />
+    <Compile Include="Field\JSM\Instructions\LASTIN.cs" />
+    <Compile Include="Field\JSM\Instructions\LASTOUT.cs" />
+    <Compile Include="Field\JSM\Instructions\LBL.cs" />
+    <Compile Include="Field\JSM\Instructions\LINEOFF.cs" />
+    <Compile Include="Field\JSM\Instructions\LINEON.cs" />
+    <Compile Include="Field\JSM\Instructions\LOADSYNC.cs" />
+    <Compile Include="Field\JSM\Instructions\LOFFSET.cs" />
+    <Compile Include="Field\JSM\Instructions\LOFFSETS.cs" />
+    <Compile Include="Field\JSM\Instructions\LSCROLL.cs" />
+    <Compile Include="Field\JSM\Instructions\LSCROLL2.cs" />
+    <Compile Include="Field\JSM\Instructions\LSCROLL3.cs" />
+    <Compile Include="Field\JSM\Instructions\LSCROLLA.cs" />
+    <Compile Include="Field\JSM\Instructions\LSCROLLA2.cs" />
+    <Compile Include="Field\JSM\Instructions\LSCROLLP.cs" />
+    <Compile Include="Field\JSM\Instructions\LSCROLLP2.cs" />
+    <Compile Include="Field\JSM\Instructions\LTURN.cs" />
+    <Compile Include="Field\JSM\Instructions\LTURNL.cs" />
+    <Compile Include="Field\JSM\Instructions\LTURNR.cs" />
+    <Compile Include="Field\JSM\Instructions\MACCEL.cs" />
+    <Compile Include="Field\JSM\Instructions\MAPFADEOFF.cs" />
+    <Compile Include="Field\JSM\Instructions\MAPFADEON.cs" />
+    <Compile Include="Field\JSM\Instructions\MAPJUMP.cs" />
+    <Compile Include="Field\JSM\Instructions\MAPJUMP3.cs" />
+    <Compile Include="Field\JSM\Instructions\MAPJUMPO.cs" />
+    <Compile Include="Field\JSM\Instructions\MAPJUMPOFF.cs" />
+    <Compile Include="Field\JSM\Instructions\MAPJUMPON.cs" />
+    <Compile Include="Field\JSM\Instructions\MENUDISABLE.cs" />
+    <Compile Include="Field\JSM\Instructions\MENUENABLE.cs" />
+    <Compile Include="Field\JSM\Instructions\MENUNAME.cs" />
+    <Compile Include="Field\JSM\Instructions\MENUNORMAL.cs" />
+    <Compile Include="Field\JSM\Instructions\MENUPHS.cs" />
+    <Compile Include="Field\JSM\Instructions\MENUSAVE.cs" />
+    <Compile Include="Field\JSM\Instructions\MENUSHOP.cs" />
+    <Compile Include="Field\JSM\Instructions\MENUTIPS.cs" />
+    <Compile Include="Field\JSM\Instructions\MENUTUTO.cs" />
+    <Compile Include="Field\JSM\Instructions\MES.cs" />
+    <Compile Include="Field\JSM\Instructions\MESFORCUS.cs" />
+    <Compile Include="Field\JSM\Instructions\MESMODE.cs" />
+    <Compile Include="Field\JSM\Instructions\MESSYNC.cs" />
+    <Compile Include="Field\JSM\Instructions\MESVAR.cs" />
+    <Compile Include="Field\JSM\Instructions\MESW.cs" />
+    <Compile Include="Field\JSM\Instructions\MLIMIT.cs" />
+    <Compile Include="Field\JSM\Instructions\MOVE.cs" />
+    <Compile Include="Field\JSM\Instructions\MOVEA.cs" />
+    <Compile Include="Field\JSM\Instructions\MOVECANCEL.cs" />
+    <Compile Include="Field\JSM\Instructions\MOVEFLUSH.cs" />
+    <Compile Include="Field\JSM\Instructions\MOVESYNC.cs" />
+    <Compile Include="Field\JSM\Instructions\MOVIE.cs" />
+    <Compile Include="Field\JSM\Instructions\MOVIECUT.cs" />
+    <Compile Include="Field\JSM\Instructions\MOVIEREADY.cs" />
+    <Compile Include="Field\JSM\Instructions\MOVIESYNC.cs" />
+    <Compile Include="Field\JSM\Instructions\MSPEED.cs" />
+    <Compile Include="Field\JSM\Instructions\MUSICCHANGE.cs" />
+    <Compile Include="Field\JSM\Instructions\MUSICLOAD.cs" />
+    <Compile Include="Field\JSM\Instructions\MUSICREPLAY.cs" />
+    <Compile Include="Field\JSM\Instructions\MUSICSKIP.cs" />
+    <Compile Include="Field\JSM\Instructions\MUSICSTATUS.cs" />
+    <Compile Include="Field\JSM\Instructions\MUSICSTOP.cs" />
+    <Compile Include="Field\JSM\Instructions\MUSICVOL.cs" />
+    <Compile Include="Field\JSM\Instructions\MUSICVOLFADE.cs" />
+    <Compile Include="Field\JSM\Instructions\MUSICVOLSYNC.cs" />
+    <Compile Include="Field\JSM\Instructions\MUSICVOLTRANS.cs" />
+    <Compile Include="Field\JSM\Instructions\NOP.cs" />
+    <Compile Include="Field\JSM\Instructions\OFFSETSYNC.cs" />
+    <Compile Include="Field\JSM\Instructions\OPENEYES.cs" />
+    <Compile Include="Field\JSM\Instructions\PARTICLEOFF.cs" />
+    <Compile Include="Field\JSM\Instructions\PARTICLEON.cs" />
+    <Compile Include="Field\JSM\Instructions\PARTICLESET.cs" />
+    <Compile Include="Field\JSM\Instructions\PCOPYINFO.cs" />
+    <Compile Include="Field\JSM\Instructions\PCTURN.cs" />
+    <Compile Include="Field\JSM\Instructions\PDIRA.cs" />
+    <Compile Include="Field\JSM\Instructions\PGETINFO.cs" />
+    <Compile Include="Field\JSM\Instructions\PHSENABLE.cs" />
+    <Compile Include="Field\JSM\Instructions\PHSPOWER.cs" />
+    <Compile Include="Field\JSM\Instructions\PJUMPA.cs" />
+    <Compile Include="Field\JSM\Instructions\PLTURN.cs" />
+    <Compile Include="Field\JSM\Instructions\PMOVEA.cs" />
+    <Compile Include="Field\JSM\Instructions\PMOVECANCEL.cs" />
+    <Compile Include="Field\JSM\Instructions\POLYCOLOR.cs" />
+    <Compile Include="Field\JSM\Instructions\POLYCOLORALL.cs" />
+    <Compile Include="Field\JSM\Instructions\POPANIME.cs" />
+    <Compile Include="Field\JSM\Instructions\POPI_L.cs" />
+    <Compile Include="Field\JSM\Instructions\POPM_B.cs" />
+    <Compile Include="Field\JSM\Instructions\POPM_L.cs" />
+    <Compile Include="Field\JSM\Instructions\POPM_W.cs" />
+    <Compile Include="Field\JSM\Instructions\PREMAPJUMP.cs" />
+    <Compile Include="Field\JSM\Instructions\PREMAPJUMP2.cs" />
+    <Compile Include="Field\JSM\Instructions\PREQ.cs" />
+    <Compile Include="Field\JSM\Instructions\PREQEW.cs" />
+    <Compile Include="Field\JSM\Instructions\PREQSW.cs" />
+    <Compile Include="Field\JSM\Instructions\PUSHANIME.cs" />
+    <Compile Include="Field\JSM\Instructions\PUSHOFF.cs" />
+    <Compile Include="Field\JSM\Instructions\PUSHON.cs" />
+    <Compile Include="Field\JSM\Instructions\PUSHRADIUS.cs" />
+    <Compile Include="Field\JSM\Instructions\RAMESW.cs" />
+    <Compile Include="Field\JSM\Instructions\RANIME.cs" />
+    <Compile Include="Field\JSM\Instructions\RANIMEKEEP.cs" />
+    <Compile Include="Field\JSM\Instructions\RANIMELOOP.cs" />
+    <Compile Include="Field\JSM\Instructions\RBGANIME.cs" />
+    <Compile Include="Field\JSM\Instructions\RBGANIMELOOP.cs" />
+    <Compile Include="Field\JSM\Instructions\RBGSHADELOOP.cs" />
+    <Compile Include="Field\JSM\Instructions\RCANIME.cs" />
+    <Compile Include="Field\JSM\Instructions\RCANIMEKEEP.cs" />
+    <Compile Include="Field\JSM\Instructions\RCANIMELOOP.cs" />
+    <Compile Include="Field\JSM\Instructions\RCMOVE.cs" />
+    <Compile Include="Field\JSM\Instructions\REFRESHPARTY.cs" />
+    <Compile Include="Field\JSM\Instructions\REQ.cs" />
+    <Compile Include="Field\JSM\Instructions\REQEW.cs" />
+    <Compile Include="Field\JSM\Instructions\REQSW.cs" />
+    <Compile Include="Field\JSM\Instructions\RESETGF.cs" />
+    <Compile Include="Field\JSM\Instructions\REST.cs" />
+    <Compile Include="Field\JSM\Instructions\RFACEDIR.cs" />
+    <Compile Include="Field\JSM\Instructions\RFACEDIRA.cs" />
+    <Compile Include="Field\JSM\Instructions\RFACEDIRI.cs" />
+    <Compile Include="Field\JSM\Instructions\RFACEDIROFF.cs" />
+    <Compile Include="Field\JSM\Instructions\RFACEDIRP.cs" />
+    <Compile Include="Field\JSM\Instructions\RFMOVE.cs" />
+    <Compile Include="Field\JSM\Instructions\RMOVE.cs" />
+    <Compile Include="Field\JSM\Instructions\RMOVEA.cs" />
+    <Compile Include="Field\JSM\Instructions\RND.cs" />
+    <Compile Include="Field\JSM\Instructions\RPMOVEA.cs" />
+    <Compile Include="Field\JSM\Instructions\RUNDISABLE.cs" />
+    <Compile Include="Field\JSM\Instructions\RUNENABLE.cs" />
+    <Compile Include="Field\JSM\Instructions\SARALYDISPOFF.cs" />
+    <Compile Include="Field\JSM\Instructions\SARALYDISPON.cs" />
+    <Compile Include="Field\JSM\Instructions\SARALYOFF.cs" />
+    <Compile Include="Field\JSM\Instructions\SARALYON.cs" />
+    <Compile Include="Field\JSM\Instructions\SAVEENABLE.cs" />
+    <Compile Include="Field\JSM\Instructions\SCROLLMODE2.cs" />
+    <Compile Include="Field\JSM\Instructions\SCROLLRATIO2.cs" />
+    <Compile Include="Field\JSM\Instructions\SCROLLSYNC.cs" />
+    <Compile Include="Field\JSM\Instructions\SCROLLSYNC2.cs" />
+    <Compile Include="Field\JSM\Instructions\SEALEDOFF.cs" />
+    <Compile Include="Field\JSM\Instructions\SEPOS.cs" />
+    <Compile Include="Field\JSM\Instructions\SEPOSTRANS.cs" />
+    <Compile Include="Field\JSM\Instructions\SESTOP.cs" />
+    <Compile Include="Field\JSM\Instructions\SET.cs" />
+    <Compile Include="Field\JSM\Instructions\SET3.cs" />
+    <Compile Include="Field\JSM\Instructions\SETBAR.cs" />
+    <Compile Include="Field\JSM\Instructions\SETBATTLEMUSIC.cs" />
+    <Compile Include="Field\JSM\Instructions\SETCAMERA.cs" />
+    <Compile Include="Field\JSM\Instructions\SETCARD.cs" />
+    <Compile Include="Field\JSM\Instructions\SETDCAMERA.cs" />
+    <Compile Include="Field\JSM\Instructions\SETDRAWPOINT.cs" />
+    <Compile Include="Field\JSM\Instructions\SETDRESS.cs" />
+    <Compile Include="Field\JSM\Instructions\SETGETA.cs" />
+    <Compile Include="Field\JSM\Instructions\SETHP.cs" />
+    <Compile Include="Field\JSM\Instructions\SETLINE.cs" />
+    <Compile Include="Field\JSM\Instructions\SETMESSPEED.cs" />
+    <Compile Include="Field\JSM\Instructions\SETMODEL.cs" />
+    <Compile Include="Field\JSM\Instructions\SETODIN.cs" />
+    <Compile Include="Field\JSM\Instructions\SETPARTY.cs" />
+    <Compile Include="Field\JSM\Instructions\SETPARTY2.cs" />
+    <Compile Include="Field\JSM\Instructions\SETPC.cs" />
+    <Compile Include="Field\JSM\Instructions\SETPLACE.cs" />
+    <Compile Include="Field\JSM\Instructions\SETROOTTRANS.cs" />
+    <Compile Include="Field\JSM\Instructions\SETTIMER.cs" />
+    <Compile Include="Field\JSM\Instructions\SETVIBRATE.cs" />
+    <Compile Include="Field\JSM\Instructions\SETWITCH.cs" />
+    <Compile Include="Field\JSM\Instructions\SEVOL.cs" />
+    <Compile Include="Field\JSM\Instructions\SEVOLTRANS.cs" />
+    <Compile Include="Field\JSM\Instructions\SHADEFORM.cs" />
+    <Compile Include="Field\JSM\Instructions\SHADELEVEL.cs" />
+    <Compile Include="Field\JSM\Instructions\SHADESET.cs" />
+    <Compile Include="Field\JSM\Instructions\SHADETIMER.cs" />
+    <Compile Include="Field\JSM\Instructions\SHAKE.cs" />
+    <Compile Include="Field\JSM\Instructions\SHAKEOFF.cs" />
+    <Compile Include="Field\JSM\Instructions\SHOW.cs" />
+    <Compile Include="Field\JSM\Instructions\SPLIT.cs" />
+    <Compile Include="Field\JSM\Instructions\SPUREADY.cs" />
+    <Compile Include="Field\JSM\Instructions\SPUSYNC.cs" />
+    <Compile Include="Field\JSM\Instructions\STOPVIBRATE.cs" />
+    <Compile Include="Field\JSM\Instructions\SUBMEMBER.cs" />
+    <Compile Include="Field\JSM\Instructions\SUBPARTY.cs" />
+    <Compile Include="Field\JSM\Instructions\SWAP.cs" />
+    <Compile Include="Field\JSM\Instructions\TALKOFF.cs" />
+    <Compile Include="Field\JSM\Instructions\TALKON.cs" />
+    <Compile Include="Field\JSM\Instructions\TALKRADIUS.cs" />
+    <Compile Include="Field\JSM\Instructions\TCOLADD.cs" />
+    <Compile Include="Field\JSM\Instructions\TCOLSUB.cs" />
+    <Compile Include="Field\JSM\Instructions\THROUGHOFF.cs" />
+    <Compile Include="Field\JSM\Instructions\THROUGHON.cs" />
+    <Compile Include="Field\JSM\Instructions\TUTO.cs" />
+    <Compile Include="Field\JSM\Instructions\UCOFF.cs" />
+    <Compile Include="Field\JSM\Instructions\UCON.cs" />
+    <Compile Include="Field\JSM\Instructions\Unknown10.cs" />
+    <Compile Include="Field\JSM\Instructions\Unknown11.cs" />
+    <Compile Include="Field\JSM\Instructions\Unknown12.cs" />
+    <Compile Include="Field\JSM\Instructions\Unknown13.cs" />
+    <Compile Include="Field\JSM\Instructions\Unknown14.cs" />
+    <Compile Include="Field\JSM\Instructions\Unknown15.cs" />
+    <Compile Include="Field\JSM\Instructions\Unknown16.cs" />
+    <Compile Include="Field\JSM\Instructions\Unknown2.cs" />
+    <Compile Include="Field\JSM\Instructions\Unknown3.cs" />
+    <Compile Include="Field\JSM\Instructions\Unknown4.cs" />
+    <Compile Include="Field\JSM\Instructions\Unknown6.cs" />
+    <Compile Include="Field\JSM\Instructions\Unknown7.cs" />
+    <Compile Include="Field\JSM\Instructions\Unknown8.cs" />
+    <Compile Include="Field\JSM\Instructions\Unknown9.cs" />
+    <Compile Include="Field\JSM\Instructions\UNUSE.cs" />
+    <Compile Include="Field\JSM\Instructions\USE.cs" />
+    <Compile Include="Field\JSM\Instructions\WAIT.cs" />
+    <Compile Include="Field\JSM\Instructions\WHERECARD.cs" />
+    <Compile Include="Field\JSM\Instructions\WHOAMI.cs" />
+    <Compile Include="Field\JSM\Instructions\WINCLOSE.cs" />
+    <Compile Include="Field\JSM\Instructions\WINSIZE.cs" />
+    <Compile Include="Field\JSM\Instructions\WORLDMAPJUMP.cs" />
+    <Compile Include="Field\JSM\Types\Jsm.Character.cs" />
+    <Compile Include="Field\JSM\Types\Jsm.Global.cs" />
+    <Compile Include="Field\JSM\Types\Jsm.Opcode.cs" />
+    <Compile Include="Field\MSD\Msd.Reader.cs" />
+    <Compile Include="Field\ScriptFormatter\FieldScriptFormatter.cs" />
+    <Compile Include="Field\ScriptFormatter\FormattedObject.cs" />
+    <Compile Include="Field\ScriptFormatter\ScriptFormatterContext.cs" />
+    <Compile Include="Field\SYM\Sym.GameObject.cs" />
+    <Compile Include="Field\SYM\Sym.GameObjects.cs" />
+    <Compile Include="Field\SYM\Sym.Reader.cs" />
+    <Compile Include="Font.cs" />
+    <Compile Include="Game1.cs" />
+    <Compile Include="GFs.cs" />
+    <Compile Include="Kernel\Abilities\Abilities.cs" />
+    <Compile Include="Kernel\Abilities\AbilityFlags2.cs" />
+    <Compile Include="Kernel\AttackFlags.cs" />
+    <Compile Include="Kernel\AttackType.cs" />
+    <Compile Include="Kernel\Commands\BattleCommand.cs" />
+    <Compile Include="Kernel\Items\BattleItemsData.cs" />
+    <Compile Include="Kernel\BattleOnlyStatuses.cs" />
+    <Compile Include="Kernel\Limit\BlueMagicQuistisLimitBreak.cs" />
+    <Compile Include="Kernel\Abilities\CharacterAbilityFlags.cs" />
+    <Compile Include="Kernel\Abilities\CharacterAbilities.cs" />
+    <Compile Include="Kernel\CharacterStats.cs" />
+    <Compile Include="Kernel\Abilities\CommandAbility.cs" />
+    <Compile Include="Kernel\Abilities\CommandAbilityData.cs" />
+    <Compile Include="Kernel\KernelBin.cs" />
+    <Compile Include="Kernel\Devour.cs" />
+    <Compile Include="Kernel\Limit\DuelZellLimitBreak.cs" />
+    <Compile Include="Kernel\Element.cs" />
+    <Compile Include="Kernel\EnemyAttacksData.cs" />
+    <Compile Include="Kernel\Abilities\IEquippableAbility.cs" />
+    <Compile Include="Kernel\Gender.cs" />
+    <Compile Include="Kernel\Abilities\GFAbilities.cs" />
+    <Compile Include="Kernel\Abilities\JunctionAbilityFlags.cs" />
+    <Compile Include="Kernel\JunctionableGFsData.cs" />
+    <Compile Include="Kernel\Abilities\JunctionAbilities.cs" />
+    <Compile Include="Kernel\JunctionStatuses.cs" />
+    <Compile Include="Kernel\MagicData.cs" />
+    <Compile Include="Kernel\MagicID.cs" />
+    <Compile Include="Kernel\Abilities\MenuAbilities.cs" />
+    <Compile Include="Kernel\MiscSection.cs" />
+    <Compile Include="Kernel\MiscTextPointers.cs" />
+    <Compile Include="Kernel\Items\NonBattleItemsData.cs" />
+    <Compile Include="Kernel\NonJunctionableGFsAttacksData.cs" />
+    <Compile Include="Kernel\Abilities\PartyAbilities.cs" />
+    <Compile Include="Kernel\PersistentStatuses.cs" />
+    <Compile Include="Kernel\Quantity.cs" />
+    <Compile Include="Kernel\Limit\BlueMagicQuistisLimitBreakParameters.cs" />
+    <Compile Include="Kernel\Limit\RenzokukenFinisher.cs" />
+    <Compile Include="Kernel\Limit\RenzokukenFinisherData.cs" />
+    <Compile Include="Kernel\Limit\RinoaLimitBreaksPart1.cs" />
+    <Compile Include="Kernel\Limit\RinoaLimitBreaksPart2.cs" />
+    <Compile Include="Kernel\Limit\SelphieLimitBreakSets.cs" />
+    <Compile Include="Kernel\Limit\ShotIrvineLimitBreak.cs" />
+    <Compile Include="Kernel\Limit\Slot.cs" />
+    <Compile Include="Kernel\Limit\SlotArray.cs" />
+    <Compile Include="Kernel\Stat.cs" />
+    <Compile Include="Kernel\StatFlags.cs" />
+    <Compile Include="Kernel\Abilities\StatPercentageAbilities.cs" />
+    <Compile Include="Kernel\Target.cs" />
+    <Compile Include="Kernel\Limit\TemporaryCharacterLimitBreaks.cs" />
+    <Compile Include="Kernel\WeaponsData.cs" />
+    <Compile Include="Kernel\Limit\ZellLimitBreakParameters.cs" />
+    <Compile Include="Loc.cs" />
+    <Compile Include="Archive\Compression\LZSS.cs" />
+    <Compile Include="Memory.cs" />
+    <Compile Include="Menu\Images\Cards.cs" />
+    <Compile Include="Menu\Images\Cards.ID.cs" />
+    <Compile Include="Menu\Images\Faces.cs" />
+    <Compile Include="Menu\Images\Faces.ID.cs" />
+    <Compile Include="Menu\Images\Icons.cs" />
+    <Compile Include="Menu\Images\Icons.ID.cs" />
+    <Compile Include="Menu\Images\Icons.InsertCustomEntries.cs" />
+    <Compile Include="Menu\IGM\IGM.cs" />
+    <Compile Include="Menu\IGM\IGMData\Clock.cs" />
+    <Compile Include="Menu\IGM\IGMData\Footer.cs" />
+    <Compile Include="Menu\IGM\IGMData\Header.cs" />
+    <Compile Include="Menu\IGM\IGMData\NonParty.cs" />
+    <Compile Include="Menu\IGM\IGMData\Party.cs" />
+    <Compile Include="Menu\IGM\IGMData\PartyGroup.cs" />
+    <Compile Include="Menu\IGM\IGMData\SideMenu.cs" />
+    <Compile Include="Menu\IGMItems\IGMData\Statuses.cs" />
+    <Compile Include="Menu\IGMItems\IGMData\IGMData_TargetPool.cs" />
+    <Compile Include="Menu\IGMItems\IGMData\TopMenu.cs" />
+    <Compile Include="Menu\IGMItems\IGM_Items.cs" />
+    <Compile Include="Menu\Junction\IGMData\IGMData_Abilities_AbilityPool.cs" />
+    <Compile Include="Menu\Junction\IGMData\IGMData_Abilities_CommandPool.cs" />
+    <Compile Include="Menu\Junction\IGMData\IGMData_Abilities_Group.cs" />
+    <Compile Include="Menu\Junction\IGMData\IGMData_CharacterInfo.cs" />
+    <Compile Include="Menu\Junction\IGMData\IGMData_ConfirmChanges.cs" />
+    <Compile Include="Menu\Junction\IGMData\IGMData_ConfirmRemAll.cs" />
+    <Compile Include="Menu\Junction\IGMData\IGMData_ConfirmRemMag.cs" />
+    <Compile Include="Menu\Junction\IGMData\IGMData_GF_Group.cs" />
+    <Compile Include="Menu\Junction\IGMData\IGMData_GF_Junctioned.cs" />
+    <Compile Include="Menu\Junction\IGMData\IGMData_Mag_EL_A_D_Slots.cs" />
+    <Compile Include="Menu\Junction\IGMData\IGMData_Mag_EL_A_Values.cs" />
+    <Compile Include="Menu\Junction\IGMData\IGMData_Mag_EL_D_Values.cs" />
+    <Compile Include="Menu\Junction\IGMData\IGMData_Mag_Group.cs" />
+    <Compile Include="Menu\Junction\IGMData\IGMData_Mag_PageTitle.cs" />
+    <Compile Include="Menu\Junction\IGMData\IGMData_Mag_Stat_Slots.cs" />
+    <Compile Include="Menu\Junction\IGMData\IGMData_Mag_ST_A_D_Slots.cs" />
+    <Compile Include="Menu\Junction\IGMData\IGMData_Mag_ST_A_Values.cs" />
+    <Compile Include="Menu\Junction\IGMData\IGMData_Mag_ST_D_Values.cs" />
+    <Compile Include="Menu\Junction\IGMData\IGMData_Slots.cs" />
+    <Compile Include="Menu\Junction\IGMData\TopMenu.cs" />
+    <Compile Include="Menu\Junction\IGMData\IGMData_TopMenu_Auto.cs" />
+    <Compile Include="Menu\Junction\IGMData\IGMData_TopMenu_Junction.cs" />
+    <Compile Include="Menu\Junction\IGMData\IGMData_TopMenu_Off.cs" />
+    <Compile Include="Menu\Junction\IGMData\IGMData_Values.cs" />
+    <Compile Include="Menu\Junction\IGM_Junction.cs" />
+    <Compile Include="Menu\IGMItems\Items_In_Menu.cs" />
+    <Compile Include="Menu\Images\Magazine.cs" />
+    <Compile Include="Menu\Images\Magazine.ID.cs" />
+    <Compile Include="Menu\Images\Magazine.InsertCustomEntries.cs" />
+    <Compile Include="Menu\Menu.cs" />
+    <Compile Include="Menu\Debug\Module_card_test.cs" />
+    <Compile Include="Menu\Debug\Module_face_test.cs" />
+    <Compile Include="Menu\Debug\Module_icon_test.cs" />
+    <Compile Include="Menu\Cursor_Status.cs" />
+    <Compile Include="Menu\Table_Options.cs" />
+    <Compile Include="PointEx.cs" />
+    <Compile Include="Strings\Name.cs" />
+    <Compile Include="Strings\Stringfile.cs" />
+    <Compile Include="Strings\Strings.Areames.cs" />
+    <Compile Include="Strings\Strings.cs" />
+    <Compile Include="ModuleHandler.cs" />
+    <Compile Include="AV\Movie\ModuleMovieTest.cs" />
+    <Compile Include="module_overture_debug.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Saves\Saves.CharacterData.cs" />
+    <Compile Include="Saves\Saves.ChocoboWorld.cs" />
+    <Compile Include="Saves\Saves.Costume.cs" />
+    <Compile Include="Saves\Saves.cs" />
+    <Compile Include="Saves\Saves.Data.cs" />
+    <Compile Include="Saves\Saves.FieldVars.cs" />
+    <Compile Include="Saves\Saves.GFData.cs" />
+    <Compile Include="Saves\Saves.GFs.cs" />
+    <Compile Include="Saves\Saves.Item.cs" />
+    <Compile Include="Saves\Saves.Shop.cs" />
+    <Compile Include="Saves\Saves.TripleTriad.cs" />
+    <Compile Include="Saves\Saves.Worldmap.cs" />
+    <Compile Include="Sources\Environment\Build\BuildEnvironment.cs" />
+    <Compile Include="Sources\Environment\Runtime\RuntimeEnvironment.cs" />
+    <Compile Include="Sources\Environment\Runtime\RuntimePlatform.cs" />
+    <Compile Include="Sources\Exceptions\ExceptionList.cs" />
+    <Compile Include="Sources\MonoGame\Hooks\IMonoGameHook.cs" />
+    <Compile Include="Sources\MonoGame\Hooks\MonoGameHooks.cs" />
+    <Compile Include="Sources\MonoGame\Hooks\OpenALWindowsHook.cs" />
+    <Compile Include="Sources\NetFramework\TypeExtensionMethods.cs" />
+    <Compile Include="Menu\Images\SP2.cs" />
+    <Compile Include="Strings\Strings.Kernel.cs" />
+    <Compile Include="Strings\StringsBase.cs" />
+    <Compile Include="Image\TEX.cs" />
+    <Compile Include="Image\TextureHandler.cs" />
+    <Compile Include="Image\TIM2.cs" />
+    <Compile Include="World\CharaOne.cs" />
+    <Compile Include="World\CloudRender.cs" />
+    <Compile Include="World\debug_MCH.cs" />
+    <Compile Include="World\interchangeableZones.cs" />
+    <Compile Include="World\MiniMaps.cs" />
+    <Compile Include="World\module_world_debug.cs" />
+    <Compile Include="World\rail.cs" />
+    <Compile Include="World\SpecialEffectsRenderer.cs" />
+    <Compile Include="World\texl.cs" />
+    <Compile Include="World\wm2field.cs" />
+    <Compile Include="World\wmset.cs" />
+    <Compile Include="AV\Music\Midi\MidiController.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <MonoGameContentReference Include="Content\Content.mgcb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Menu\XMLFile1.xml" />
+    <Content Include="x64\avcodec-58.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x64\avdevice-58.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x64\avfilter-7.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x64\avformat-58.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x64\avutil-56.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x64\glib-2.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x64\libcharset.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x64\libFLAC-8.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x64\libfluidsynth-2.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x64\libglib-2.0-0.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x64\libgmodule-2.0-0.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x64\libgobject-2.0-0.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x64\libgthread-2.0-0.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x64\libiconv.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x64\libinstpatch-0.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x64\libintl-8.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x64\libintl.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x64\libogg-0.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x64\libpcre-1.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x64\libreadline7.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x64\libsndfile-1.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x64\libspeex-1.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x64\libvorbis-0.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x64\libvorbisenc-2.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x64\libwinpthread-1.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x64\NAudio.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x64\NAudio.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x64\pcre.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x64\postproc-55.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x64\swresample-3.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x64\swscale-5.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x86\avcodec-58.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x86\ImGui.NET.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x86\avdevice-58.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x86\avfilter-7.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x86\avformat-58.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x86\avutil-56.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x86\postproc-55.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x86\swresample-3.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x86\swscale-5.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="FFmpeg.AutoGen.dll.config">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="LICENSE" />
+    <None Include="packages.config" />
+    <Compile Include="Strings\Strings.Mngrp.cs" />
+    <Compile Include="Strings\Strings.Namedic.cs" />
+    <None Include="README.md" />
+    <None Include="x64\libfluidsynth-2.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="x64\libfluidsynth.so.2">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="x64\libfluidsynth.so.2.1.2">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Sources\Environment\Game\Location\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Encoding\Encoding.csproj">
+      <Project>{a9b33bf4-9b03-4e3d-bf6a-181521046ee8}</Project>
+      <Name>Encoding</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\MonoGame.Framework.DesktopGL.3.7.1.189\build\MonoGame.Framework.DesktopGL.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MonoGame.Framework.DesktopGL.3.7.1.189\build\MonoGame.Framework.DesktopGL.targets'))" />
+    <Error Condition="!Exists('..\packages\ImGui.NET.1.75.0\build\net40\ImGui.NET.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ImGui.NET.1.75.0\build\net40\ImGui.NET.targets'))" />
+  </Target>
+  <Import Project="..\packages\MonoGame.Framework.DesktopGL.3.7.1.189\build\MonoGame.Framework.DesktopGL.targets" Condition="Exists('..\packages\MonoGame.Framework.DesktopGL.3.7.1.189\build\MonoGame.Framework.DesktopGL.targets')" />
+  <Import Project="..\packages\ImGui.NET.1.75.0\build\net40\ImGui.NET.targets" Condition="Exists('..\packages\ImGui.NET.1.75.0\build\net40\ImGui.NET.targets')" />
+</Project>
