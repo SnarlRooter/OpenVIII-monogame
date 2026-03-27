@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -183,17 +183,18 @@ namespace OpenVIII
                 {
                     // Get attacker's data from the flags
                     if (!(flags.HasFlag(Kernel.AttackFlags.Attacker) && 
-                          flags.GetAttackerData(out var attacker)))
+                          flags.GetAttackerData(out Damageable attacker)))
                         return 0;
 
                     // Get attacker's strength
                     var strength = attacker.TotalStat(Kernel.Stat.STR);
                     
-                    // Get weapon power (default to 1 if no weapon)
+                    // Get weapon power (default to 1 if no weapon or if attacker is an enemy)
                     var weaponPower = 1;
-                    if (attacker.WeaponID < Memory.KernelBin.WeaponsData.Count)
+                    if (attacker.GetCharacterData(out var characterData) && 
+                        characterData.WeaponID < Memory.KernelBin.WeaponsData.Count)
                     {
-                        weaponPower = Memory.KernelBin.WeaponsData[attacker.WeaponID].STR;
+                        weaponPower = Memory.KernelBin.WeaponsData[characterData.WeaponID].STR;
                     }
 
                     // Calculate base damage

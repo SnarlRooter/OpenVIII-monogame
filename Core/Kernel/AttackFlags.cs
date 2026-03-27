@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics.CodeAnalysis;
 
 namespace OpenVIII
@@ -28,12 +28,22 @@ namespace OpenVIII
         public static class AttackFlagsExtensions
         {
             private static Saves.CharacterData _attackerData;
+            private static Damageable _attackerDamageable;
 
             public static void SetAttackerData(this AttackFlags flags, Saves.CharacterData attacker)
             {
                 if ((flags & AttackFlags.Attacker) != 0)
                 {
                     _attackerData = attacker;
+                    _attackerDamageable = attacker; // CharacterData is also a Damageable
+                }
+            }
+
+            public static void SetAttackerData(this AttackFlags flags, Damageable attacker)
+            {
+                if ((flags & AttackFlags.Attacker) != 0)
+                {
+                    _attackerDamageable = attacker;
                 }
             }
 
@@ -43,6 +53,18 @@ namespace OpenVIII
                 {
                     attacker = _attackerData;
                     return true;
+                }
+                attacker = null;
+                return false;
+            }
+
+            public static bool GetAttackerData(this AttackFlags flags, out Damageable attacker)
+            {
+                if ((flags & AttackFlags.Attacker) != 0)
+                {
+                    // Check _attackerDamageable first, then fall back to _attackerData
+                    attacker = _attackerDamageable ?? _attackerData;
+                    return attacker != null;
                 }
                 attacker = null;
                 return false;

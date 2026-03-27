@@ -268,41 +268,84 @@ namespace OpenVIII.IGMData.Target
             bool Command01_ATTACK()
             {
                 NeededVariables(out var d);
+
+                // Handle player attacking enemy
                 if (d.First().GetType() == typeof(Enemy) && Damageable.GetCharacterData(out var c))
                 {
                     var target = (Enemy)d.First();
-                    
+
                     // Calculate hit chance
                     var hitChance = c.HIT;
                     var evadeChance = target.EVA;
                     var finalHitChance = Math.Max(0, Math.Min(100, hitChance - evadeChance));
-                    
+
                     // Check if attack hits
                     if (Memory.Random.Next(100) < finalHitChance)
                     {
                         // Determine if it's a critical hit
                         var isCritical = Memory.Random.Next(100) < 10; // 10% base critical chance
-                        
+
                         // Create flags with attacker data
                         var flags = AttackFlags.None;
                         if (isCritical)
                             flags |= AttackFlags.Unk0X2;
                         flags |= AttackFlags.Attacker;
                         flags.SetAttackerData(c);
-                        
+
                         // Apply damage
                         var damageDealt = target.DealDamage(0, AttackType.PhysicalAttack, flags);
-                        
+
                         Debug.WriteLine($"{c.Name} attacks {target.Name} for {damageDealt} damage{(isCritical ? " (Critical!)" : "")}");
                     }
                     else
                     {
                         Debug.WriteLine($"{c.Name} missed {target.Name}!");
                     }
-                    
+
                     EndTurn();
                     return true;
                 }
+
+                // Handle enemy attacking player
+                if (d.First().GetType() == typeof(Saves.CharacterData) && Damageable.GetEnemy(out var enemy))
+                {
+                    var target = (Saves.CharacterData)d.First();
+
+                    // Get the enemy's attack data if available (for attack power)
+                    byte attackPower = EnemyAttack?.AttackPower ?? 100; // Default to 100 if no attack data
+
+                    // Calculate hit chance using enemy's HIT and target's EVA
+                    var hitChance = enemy.HIT;
+                    var evadeChance = target.EVA;
+                    var finalHitChance = Math.Max(0, Math.Min(100, hitChance - evadeChance));
+
+                    // Check if attack hits
+                    if (Memory.Random.Next(100) < finalHitChance)
+                    {
+                        // Determine if it's a critical hit
+                        var isCritical = Memory.Random.Next(100) < 10; // 10% base critical chance
+
+                        // Create flags with attacker data
+                        var flags = AttackFlags.None;
+                        if (isCritical)
+                            flags |= AttackFlags.Unk0X2;
+                        flags |= AttackFlags.Attacker;
+                        flags.SetAttackerData(enemy);
+
+                        // Apply damage (pass attack power for enemy attacks)
+                        var damageDealt = target.DealDamage(attackPower, AttackType.PhysicalAttack, flags);
+
+                        Debug.WriteLine($"{enemy.Name} attacks {target.Name} for {damageDealt} damage{(isCritical ? " (Critical!)" : "")}");
+                    }
+                    else
+                    {
+                        Debug.WriteLine($"{enemy.Name} missed {target.Name}!");
+                    }
+
+                    EndTurn();
+                    return true;
+                }
+
                 return false;
             }
 

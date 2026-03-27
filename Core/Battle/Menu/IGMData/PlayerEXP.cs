@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using OpenVIII.AV;
@@ -34,8 +34,9 @@ namespace OpenVIII.IGMData
                     if (_exp == 0 || !Damageable.IsGameOver)
                     {
                         if (value < 0) value = 0;
-                        if (_exp != 0 && Damageable.GetCharacterData(out var c) && !NoEarnExp)
-                            c.Experience += (uint)Math.Abs((MathHelper.Distance(_exp, value)));
+                        // Add the difference to character's experience when countdown decrements
+                        if (_exp > 0 && value >= 0 && _exp > value && Damageable.GetCharacterData(out var c) && !NoEarnExp)
+                            c.Experience += (uint)(_exp - value);
                         _exp = value;
                     }
                     else if (Damageable.IsGameOver)

@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using OpenVIII.AV;
@@ -461,7 +462,78 @@ namespace OpenVIII
             {
                 ret = m.Update() || ret;
             }
-            if (!(GetCurrentBattleMenu()?.Damageable?.GetBattleMode().Equals(Damageable.BattleMode.YourTurn) ?? false))
+
+            // Check if all enemies are defeated - if so, trigger victory
+            if (Enemy.Party != null && Enemy.Party.Count > 0 && Enemy.Party.All(e => e.IsDead || e.IsGameOver))
+            {
+                TriggerVictory();
+                return true;
+            }
+
+            // Check if all party members are defeated - if so, trigger game over
+            var partyMembers = bml.Where(m => m.Damageable?.GetCharacterData(out _) ?? false).ToList();
+            if (partyMembers.Count > 0 && partyMembers.All(m => m.Damageable.IsGameOver))
+            {
+                SetMode(Mode.GameOver);
+                return true;
+            }
+
+            // Check if current turn is an enemy - if so, auto-process their turn
+            var currentMenu = GetCurrentBattleMenu();
+            if (currentMenu != null && (currentMenu.Damageable?.GetBattleMode().Equals(Damageable.BattleMode.YourTurn) ?? false))
+            {
+                // Check if this is an enemy (not a character)
+                if (currentMenu.Damageable.GetEnemy(out var enemy))
+                {
+                    // Auto-process enemy turn - automatically select Attack
+                    var commands = (OpenVIII.IGMData.Commands)((BattleMenu)currentMenu).Data[BattleMenu.SectionName.Commands];
+                    if (commands != null)
+                    {
+                        // First check if EnemyAttacks submenu is open (multiple attack options)
+                        var enemyAttacks = commands.EnemyAttacks;
+                        if (enemyAttacks != null && enemyAttacks.Enabled)
+                        {
+                            // Auto-select the first available attack
+                            enemyAttacks.CURSOR_SELECT = 0;
+                            enemyAttacks.Inputs_OKAY();
+                            return true;
+                        }
+
+                        // Check if TargetGroup is showing (needs target selection)
+                        var targetGroup = commands.TargetGroup;
+                        if (targetGroup != null && targetGroup.Enabled)
+                        {
+                            // For enemy attacks, we need to target a party member
+                            // Access TargetParty to set cursor to a valid target
+                            var targetPartyField = targetGroup.GetType().GetField("TargetParty", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                            if (targetPartyField != null)
+                            {
+                                var targetParty = targetPartyField.GetValue(targetGroup) as OpenVIII.IGMData.Target.Party;
+                                if (targetParty != null && targetParty.Rows > 0)
+                                {
+                                    // Select a random party member as target
+                                    targetParty.CURSOR_SELECT = Memory.Random.Next(targetParty.Rows);
+                                }
+                            }
+                            // Execute the attack on the selected target
+                            targetGroup.Inputs_OKAY();
+                            return true;
+                        }
+
+                        // Select the Attack command (BattleID 1)
+                        var attackCommand = Memory.KernelBin.BattleCommands.FirstOrDefault(c => c.BattleID == 1);
+                        if (attackCommand != null)
+                        {
+                            // Set cursor to Attack command
+                            commands.CURSOR_SELECT = 0;
+                            // Execute the attack command
+                            commands.Inputs_OKAY();
+                            return true;
+                        }
+                    }
+                }
+            }
+            if (!(currentMenu?.Damageable?.GetBattleMode().Equals(Damageable.BattleMode.YourTurn) ?? false))
             {
                 var cnt = bml.Count;
                 if (Player + 1 == cnt)

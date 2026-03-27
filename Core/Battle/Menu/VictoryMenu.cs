@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
@@ -105,6 +105,7 @@ namespace OpenVIII
                         Data[Mode.AP].Show();
                         Data[Mode.AP].Refresh();
                         break;
+                    
 
                     case Mode.Exp:
                         Data[Mode.Exp].Show();
@@ -162,7 +163,7 @@ namespace OpenVIII
                 {
                     { Mode.Exp, Data[Mode.Exp].Inputs},
                     { Mode.Items, Data[Mode.Items].Inputs},
-                    { Mode.AP, Data[Mode.AP].Inputs}
+                    { Mode.AP, Data[Mode.AP].Inputs},
                 };
         }
 
