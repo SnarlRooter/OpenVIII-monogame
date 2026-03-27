@@ -256,6 +256,7 @@
     <Compile Include="Battle\AnimationSystem.cs" />
     <Compile Include="Battle\BattleModule.cs" />
     <Compile Include="Battle\BattleSwirl.cs" />
+    <Compile Include="Battle\EnemyCombatController.cs" />
     <Compile Include="Battle\Dat\CharacterData.cs" />
     <Compile Include="Battle\Characters\CharacterInstanceInformation.cs" />
     <Compile Include="Battle\Dat\Animation.cs" />
@@ -291,6 +292,7 @@
     <Compile Include="Battle\Encounters\Encounters.cs" />
     <Compile Include="Battle\Dat\Abilities.cs" />
     <Compile Include="Battle\Enemies\Enemy.cs" />
+    <Compile Include="Battle\Enemies\EnemyAI.cs" />
     <Compile Include="Battle\Encounters\EnemyCoordinates.cs" />
     <Compile Include="Battle\Enemies\EnemyInstanceInformation.cs" />
     <Compile Include="Battle\Dat\Flag1.cs" />

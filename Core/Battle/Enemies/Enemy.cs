@@ -15,6 +15,21 @@ namespace OpenVIII
         private const int StatusDefault = 100;
         private bool _mugged;
 
+        /// <summary>
+        /// AI controller for this enemy
+        /// </summary>
+        public EnemyAI AI { get; set; }
+
+        /// <summary>
+        /// Selected attack ID for this turn
+        /// </summary>
+        public int SelectedAttackID { get; set; } = -1;
+
+        /// <summary>
+        /// Selected target for this turn
+        /// </summary>
+        public Damageable SelectedTarget { get; set; }
+
         #endregion Fields
 
         #region Constructors
