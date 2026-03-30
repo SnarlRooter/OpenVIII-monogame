@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -30,8 +30,8 @@ namespace OpenVIII
             Junction,
             Item,
             Magic,
-            Status,
             GF,
+            Status,
             Ability,
             Switch,
             Card,
@@ -39,8 +39,7 @@ namespace OpenVIII
             Tutorial,
             Save,
             Battle,
-            CurrentExp,
-            NextLevel,
+            Count
         }
 
         //private Mode _mode = 0;
@@ -48,6 +47,7 @@ namespace OpenVIII
         {
             ChooseItem,
             ChooseChar,
+            GF,
         }
 
         public enum SectionName
@@ -57,6 +57,7 @@ namespace OpenVIII
             Clock,
             PartyGroup,
             SideMenu,
+            GF,
         }
 
         #endregion Enums
@@ -66,6 +67,34 @@ namespace OpenVIII
         public static IGM Create() => Create<IGM>();
 
         public override bool Inputs() => InputDict[(Mode)GetMode()]();
+
+        public override bool SetMode(Enum mode)
+        {
+            if (mode is Mode m)
+            {
+                switch (m)
+                {
+                    case Mode.GF:
+                        Data[SectionName.SideMenu].Hide();
+                        Data[SectionName.PartyGroup].Show();
+                        Data[SectionName.GF].Show();
+                        break;
+
+                    case Mode.ChooseItem:
+                        Data[SectionName.SideMenu].Show();
+                        Data[SectionName.PartyGroup].Show();
+                        Data[SectionName.GF].Hide();
+                        break;
+
+                    case Mode.ChooseChar:
+                        Data[SectionName.SideMenu].Hide();
+                        Data[SectionName.PartyGroup].Show();
+                        Data[SectionName.GF].Hide();
+                        break;
+                }
+            }
+            return base.SetMode(mode);
+        }
 
         protected override void Init()
         {
@@ -111,16 +140,33 @@ namespace OpenVIII
                         Data.TryAdd(SectionName.SideMenu, SideMenu.Create((from i in Enumerable.Range(0,keys.Length)
                             select i).ToDictionary(x=>keys[x],x=>values[x])));
                     else Data.TryAdd(SectionName.SideMenu,null);
-                }
+                },
+                () => Data.TryAdd(SectionName.GF, IGMData.GF.Create())
             };
             Memory.ProcessActions(actions);
             Func<bool> sideMenuInputs = null;
             if (Data[SectionName.SideMenu] != null) sideMenuInputs = Data[SectionName.SideMenu].Inputs;
+            Func<bool> gfInputs = null;
+            if (Data[SectionName.GF] != null)
+            {
+                gfInputs = () =>
+                {
+                    var ret = Data[SectionName.GF].Inputs();
+                    // If GF menu is now hidden after inputs, return to side menu
+                    if (!Data[SectionName.GF].Enabled)
+                    {
+                        SetMode(Mode.ChooseItem);
+                    }
+                    return ret;
+                };
+            }
             InputDict = new Dictionary<Mode, Func<bool>>
                     {
                         { Mode.ChooseItem, sideMenuInputs },
                         { Mode.ChooseChar, Data[SectionName.PartyGroup].Inputs },
+                        { Mode.GF, gfInputs },
                     };
+            Data[SectionName.GF].Hide();
             SetMode((Mode)0);
         }
 

@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using OpenVIII.Kernel;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,8 +45,17 @@ namespace OpenVIII.IGMData.Pool
             else
             {
                 base.Inputs_CANCEL();
-                Menu.Junction.Data[Junction.SectionName.TopMenu_GF_Group].Hide();
-                Menu.Junction.SetMode(Junction.Mode.TopMenu_Junction);
+                // Only go back to Junction if Junction menu is active
+                if (Menu.Junction != null && Menu.Junction.Enabled)
+                {
+                    Menu.Junction.Data[Junction.SectionName.TopMenu_GF_Group].Hide();
+                    Menu.Junction.SetMode(Junction.Mode.TopMenu_Junction);
+                }
+                else
+                {
+                    // In main IGM menu, just hide the GF menu
+                    Hide();
+                }
             }
             return true;
         }
@@ -66,7 +75,8 @@ namespace OpenVIII.IGMData.Pool
                 AV.Sound.Play(31);
                 base.Inputs_OKAY();
                 var select = Contents[CURSOR_SELECT];
-                var characterID = Damageable.GetCharacterData(out var characterData) && JunctionedGFs.ContainsKey(select) ?
+                var hasJunctionedGFs = JunctionedGFs != null && JunctionedGFs.ContainsKey(select);
+                var characterID = Damageable.GetCharacterData(out var characterData) && hasJunctionedGFs ?
                     JunctionedGFs[select] : characterData?.ID ?? Characters.Blank;
 
                 if (characterID == Characters.Blank) return false;

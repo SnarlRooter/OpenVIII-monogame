@@ -87,7 +87,7 @@ namespace OpenVIII.IGMDataItem.Gradient
             damageable?.Refresh();
         }
 
-        public override bool Update() => Update();
+        public override bool Update() => Update(null);
 
         public bool Update(float? Percent = null)
         {

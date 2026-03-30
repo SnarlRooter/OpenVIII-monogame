@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -106,7 +106,9 @@ namespace OpenVIII
                         return true;
 
                     case Items.GF:
-                        break;
+                        IGM.SetMode(Mode.GF);
+                        IGM.Data[SectionName.GF].Show();
+                        return true;
 
                     case Items.Ability:
                         break;

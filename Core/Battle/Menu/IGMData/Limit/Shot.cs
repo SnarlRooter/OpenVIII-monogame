@@ -18,7 +18,7 @@ namespace OpenVIII.IGMData.Limit
         #endregion Fields
 
         #region Properties
-        private GF BLUEBAR { get => (GF)ITEM[3, 0]; set => ITEM[3, 0] = value; }
+        private IGMDataItem.Gradient.GF BLUEBAR { get => (IGMDataItem.Gradient.GF)ITEM[3, 0]; set => ITEM[3, 0] = value; }
         private Icon BRACKET { get => (Icon)ITEM[4, 0]; set => ITEM[4, 0] = value; }
         private Icon BULLET { get => (Icon)ITEM[0, 0]; set => ITEM[0, 0] = value; }
         public float CriticalPercent { get; set; }
@@ -115,7 +115,7 @@ namespace OpenVIII.IGMData.Limit
             QTY = new Integer { Data = 0, Pos = new Rectangle(SIZE[1].Right - QTYwidth, SIZE[1].Top, QTYwidth, SIZE[1].Height), Spaces = 3 };
             TIME = new Icon { Data = Icons.ID.TIME, Pos = SIZE[2] };
             SIZE[3].Height = 15;
-            BLUEBAR = GF.Create(SIZE[3]);
+            BLUEBAR = IGMDataItem.Gradient.GF.Create(SIZE[3]);
             BRACKET = new Icon { Data = Icons.ID.Size_08x64_Bar, Pos = SIZE[3] };
 
             Cursor_Status = Cursor_Status.Enabled | Cursor_Status.Static | Cursor_Status.Hidden;

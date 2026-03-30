@@ -454,6 +454,7 @@
     <Compile Include="Menu\IGMData\Pool\Base.cs" />
     <Compile Include="Battle\Menu\IGMData\Pool\EnemyAttacks.cs" />
     <Compile Include="Menu\IGMData\Pool\GF.cs" />
+    <Compile Include="Menu\IGMData\GF.cs" />
     <Compile Include="Menu\IGMData\Pool\Magic\Commands.cs" />
     <Compile Include="Menu\IGMData\Pool\Magic.cs" />
     <Compile Include="Menu\IGMData\Pool\Item.cs" />
