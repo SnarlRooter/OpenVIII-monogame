@@ -332,8 +332,9 @@ namespace OpenVIII.IGMData.Target
                         flags |= AttackFlags.Attacker;
                         flags.SetAttackerData(enemy);
 
-                        // Apply damage (pass attack power for enemy attacks)
-                        var damageDealt = target.DealDamage(attackPower, AttackType.PhysicalAttack, flags);
+                        // Apply damage using the correct attack type from EnemyAttack data
+                        var attackType = EnemyAttack?.AttackType ?? AttackType.PhysicalAttack;
+                        var damageDealt = target.DealDamage(attackPower, attackType, flags);
 
                         Debug.WriteLine($"{enemy.Name} attacks {target.Name} for {damageDealt} damage{(isCritical ? " (Critical!)" : "")}");
                     }

@@ -93,18 +93,20 @@ namespace OpenVIII
             private const int MAXLEVEL = 100;
 
             /// <summary>
-            /// Experence to reach level
+            /// Experience required to reach a specific level in FF8.
+            /// Each level requires exactly 1000 EXP (not cumulative).
             /// </summary>
             /// <param name="lvl">Level</param>
-            /// <returns></returns>
-            public int EXP(byte lvl) => ((lvl - 1) * (lvl - 1) * _EXP[1]) / 256 + (lvl - 1) * _EXP[0] * 10;
+            /// <returns>Total EXP needed to reach this level from level 1</returns>
+            public int EXP(byte lvl) => (lvl - 1) * 1000;
 
-            public byte LEVEL(uint exp)
-            {
-                //by default no character has this set.
-                Debug.Assert(_EXP[1] == 0); // if set we need to update the formula.
-                return (byte) MathHelper.Clamp(exp / (_EXP[0] * 10) + 1,0, MAXLEVEL);
-            }
+            /// <summary>
+            /// Calculate character level from total experience points.
+            /// In FF8, each level requires exactly 1000 EXP.
+            /// </summary>
+            /// <param name="exp">Total experience points</param>
+            /// <returns>Character level (1-100)</returns>
+            public byte LEVEL(uint exp) => (byte)MathHelper.Clamp((int)(exp / 1000) + 1, 1, MAXLEVEL);
 
             /// <summary>
             /// </summary>

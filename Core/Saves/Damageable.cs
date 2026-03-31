@@ -171,11 +171,70 @@ namespace OpenVIII
 
                 int Damage_LV_Up_Action(int dmg, Kernel.AttackFlags flags) => throw new NotImplementedException();
 
-                int Damage_Magic_Attack_Action(int dmg, Kernel.AttackFlags flags) => throw new NotImplementedException();
+                int Damage_Magic_Attack_Action(int dmg, Kernel.AttackFlags flags)
+                {
+                    if (!(flags.HasFlag(Kernel.AttackFlags.Attacker) && 
+                          flags.GetAttackerData(out Damageable attacker)))
+                        return 0;
 
-                int Damage_Magic_Attack_Ignore_Target_SPR_Action(int dmg, Kernel.AttackFlags flags) => throw new NotImplementedException();
+                    var attackerMag = attacker.TotalStat(Kernel.Stat.MAG);
+                    var targetSpr = TotalStat(Kernel.Stat.SPR);
+                    
+                    var baseDamage = (attackerMag * dmg) / 16;
+                    var sprReduction = (targetSpr + 100) / 200f;
+                    var finalDamage = (int)(baseDamage * sprReduction);
 
-                int Damage_Magic_Damage_Action(int dmg, Kernel.AttackFlags flags) => throw new NotImplementedException();
+                    if (flags.HasFlag(Kernel.AttackFlags.Unk0X2))
+                        finalDamage = (int)(finalDamage * 1.5f);
+
+                    var variance = Memory.Random.Next(80, 121) / 100f;
+                    finalDamage = (int)(finalDamage * variance);
+
+                    finalDamage = Math.Max(1, finalDamage);
+                    return ChangeHP(finalDamage) ? finalDamage : 0;
+                }
+
+                int Damage_Magic_Attack_Ignore_Target_SPR_Action(int dmg, Kernel.AttackFlags flags)
+                {
+                    if (!(flags.HasFlag(Kernel.AttackFlags.Attacker) && 
+                          flags.GetAttackerData(out Damageable attacker)))
+                        return 0;
+
+                    var attackerMag = attacker.TotalStat(Kernel.Stat.MAG);
+                    var baseDamage = (attackerMag * dmg) / 16;
+
+                    if (flags.HasFlag(Kernel.AttackFlags.Unk0X2))
+                        baseDamage = (int)(baseDamage * 1.5f);
+
+                    var variance = Memory.Random.Next(80, 121) / 100f;
+                    var finalDamage = (int)(baseDamage * variance);
+
+                    finalDamage = Math.Max(1, finalDamage);
+                    return ChangeHP(finalDamage) ? finalDamage : 0;
+                }
+
+                int Damage_Magic_Damage_Action(int dmg, Kernel.AttackFlags flags)
+                {
+                    if (!(flags.HasFlag(Kernel.AttackFlags.Attacker) && 
+                          flags.GetAttackerData(out Damageable attacker)))
+                        return 0;
+
+                    var attackerMag = attacker.TotalStat(Kernel.Stat.MAG);
+                    var targetSpr = TotalStat(Kernel.Stat.SPR);
+                    
+                    var baseDamage = (attackerMag * dmg) / 16;
+                    var sprReduction = (targetSpr + 100) / 200f;
+                    var finalDamage = (int)(baseDamage * sprReduction);
+
+                    if (flags.HasFlag(Kernel.AttackFlags.Unk0X2))
+                        finalDamage = (int)(finalDamage * 1.5f);
+
+                    var variance = Memory.Random.Next(80, 121) / 100f;
+                    finalDamage = (int)(finalDamage * variance);
+
+                    finalDamage = Math.Max(1, finalDamage);
+                    return ChangeHP(finalDamage) ? finalDamage : 0;
+                }
 
                 int Damage_Moogle_Dance_Action(int dmg, Kernel.AttackFlags flags) => throw new NotImplementedException();
 

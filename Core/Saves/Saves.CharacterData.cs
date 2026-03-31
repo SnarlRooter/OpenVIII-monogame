@@ -214,18 +214,14 @@ namespace OpenVIII
 
             public override byte EVA => checked((byte)TotalStat(Stat.EVA));
 
-            public override int EXP => checked((int)Experience);
+            public override int EXP => (int)Math.Min(Experience, int.MaxValue);
 
-            public uint Experience
-            {
-                get => _experience; set
-                {
-                    if (_experience == 0)
-                        _experience = value;
-                }
-            }
+        public uint Experience
+        {
+            get => _experience; set => _experience = value;
+        }
 
-            public ushort ExperienceToNextLevel => (ushort)(Level == 100 ? 0 : MathHelper.Clamp(CharacterStats.Exp((byte)(Level + 1)) - Experience, 0, CharacterStats.Exp(2)));
+            public ushort ExperienceToNextLevel => Level >= 100 ? (ushort)0 : (ushort)1000;
 
             public override byte HIT => checked((byte)TotalStat(Stat.HIT));
 

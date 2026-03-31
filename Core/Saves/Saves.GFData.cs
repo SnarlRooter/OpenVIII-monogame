@@ -94,7 +94,7 @@ namespace OpenVIII
 
             public override byte EVA => 0;
 
-            public override int EXP => checked((int)Experience);
+            public override int EXP => (int)Math.Min(Experience, int.MaxValue);
 
             /// <summary>
             /// Total exp to the next level up

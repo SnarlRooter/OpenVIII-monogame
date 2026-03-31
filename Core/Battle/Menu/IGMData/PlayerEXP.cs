@@ -34,9 +34,6 @@ namespace OpenVIII.IGMData
                     if (_exp == 0 || !Damageable.IsGameOver)
                     {
                         if (value < 0) value = 0;
-                        // Add the difference to character's experience when countdown decrements
-                        if (_exp > 0 && value >= 0 && _exp > value && Damageable.GetCharacterData(out var c) && !NoEarnExp)
-                            c.Experience += (uint)(_exp - value);
                         _exp = value;
                     }
                     else if (Damageable.IsGameOver)
@@ -79,7 +76,7 @@ namespace OpenVIII.IGMData
                 ITEM[0, 11].Hide();
                 ((Text)ITEM[0, 0]).Data = c.Name;
                 ((Integer)ITEM[0, 4]).Data = _exp;
-                ((Integer)ITEM[0, 6]).Data = checked((int)c.Experience);
+                ((Integer)ITEM[0, 6]).Data = (int)Math.Min(c.Experience, int.MaxValue);
                 ((Integer)ITEM[0, 8]).Data = c.ExperienceToNextLevel;
                 var lvl = Damageable.Level;
 
@@ -118,7 +115,7 @@ namespace OpenVIII.IGMData
             ITEM[0, 3] = new Text { Data = _ecn, Pos = new Rectangle(SIZE[0].X + 390, SIZE[0].Y, 0, 0) };
             ITEM[0, 4] = new Integer { Data = _exp, Pos = new Rectangle(SIZE[0].X + SIZE[0].Width - 160, SIZE[0].Y, 0, 0), Spaces = 7 };
             ITEM[0, 5] = new Icon { Data = Icons.ID.P, Pos = new Rectangle(SIZE[0].X + SIZE[0].Width - 20, SIZE[0].Y, 0, 0) };
-            ITEM[0, 6] = new Integer { Data = checked((int)(c?.Experience ?? 0)), Pos = new Rectangle(SIZE[0].X + SIZE[0].Width - 160, (int)(SIZE[0].Y + TextScale.Y * 12), 0, 0), Spaces = 7 };
+            ITEM[0, 6] = new Integer { Data = (int)Math.Min(c?.Experience ?? 0, int.MaxValue), Pos = new Rectangle(SIZE[0].X + SIZE[0].Width - 160, (int)(SIZE[0].Y + TextScale.Y * 12), 0, 0), Spaces = 7 };
             ITEM[0, 7] = new Icon { Data = Icons.ID.P, Pos = new Rectangle(SIZE[0].X + SIZE[0].Width - 20, (int)(SIZE[0].Y + TextScale.Y * 12), 0, 0) };
             ITEM[0, 8] = new Integer { Data = c?.ExperienceToNextLevel ?? 0, Pos = new Rectangle(SIZE[0].X + SIZE[0].Width - 160, (int)(SIZE[0].Y + TextScale.Y * 12 * 2), 0, 0), Spaces = 7 };
             ITEM[0, 9] = new Icon { Data = Icons.ID.P, Pos = new Rectangle(SIZE[0].X + SIZE[0].Width - 20, (int)(SIZE[0].Y + TextScale.Y * 12 * 2), 0, 0) };

@@ -41,6 +41,8 @@ namespace OpenVIII.IGMData.Group
         /// </summary>
         private int _exp;
 
+        private int _totalExpAtStart;
+
         /// <summary>
         /// Are we in counting down exp mode.
         /// </summary>
@@ -119,17 +121,54 @@ namespace OpenVIII.IGMData.Group
             if (!countingDown && remainEXP)
             {
                 countingDown = true;
+                _totalExpAtStart = EXP;
                 if (EXPsnd == null)
                     EXPsnd = Sound.Play(34, loop: true);
                 return true;
             }
 
-            if (countingDown && remainEXP)
+            if (countingDown)
             {
+                var totalExp = _totalExpAtStart;
+                
+                // First, count how many characters will actually receive EXP
+                var partyCount = 0;
+                foreach (var i in ITEM)
+                {
+                    if (i?.Damageable != null && i.Damageable.GetCharacterData(out _))
+                        partyCount++;
+                }
+                if (partyCount <= 0) partyCount = 1;
+
+                // Now distribute EXP to each character directly in Memory.State
+                foreach (var i in ITEM)
+                {
+                    if (i?.Damageable == null) continue;
+                    if (i.Damageable.GetCharacterData(out var c))
+                    {
+                        var expPerChar = totalExp / partyCount;
+                        if (EXPExtra != null && EXPExtra.TryGetValue(c.ID, out var bonus))
+                            expPerChar += bonus;
+                        // Directly update the global state - this is what PlayerExp.Update() reads!
+                        c.Experience += (uint)expPerChar;
+                    }
+                }
+
+                // Reset all tracking variables
+                _totalExpAtStart = 0;
+                _exp = 0;
+                EXPExtra = null;
                 countingDown = false;
-                EXPsnd.Stop();
-                EXPsnd = null;
-                EXP = 0;
+                
+                if (EXPsnd != null)
+                {
+                    EXPsnd.Stop();
+                    EXPsnd = null;
+                }
+
+                // Force refresh the display to show updated values from Memory.State
+                Refresh();
+                
                 return true;
             }
             return false;
@@ -201,11 +240,15 @@ namespace OpenVIII.IGMData.Group
 
         private void RefreshEXP()
         {
+            var partyCount = 0;
+            foreach (var i in ITEM)
+                if (i != null && i.Damageable != null)
+                    partyCount++;
+            if (partyCount <= 0) partyCount = 1;
             foreach (var i in ITEM)
             {
-                var tmpexp = EXP;
-                if (EXPExtra != null && i.Damageable.GetCharacterData(out var c) && EXPExtra.TryGetValue(c.ID, out var bonus))
-                    tmpexp += bonus;
+                if (i?.Damageable == null) continue;
+                var tmpexp = (int)(EXP / partyCount);
                 ((IGMData.PlayerExp)i).NoEarnExp = NoEarnExp;
                 ((IGMData.PlayerExp)i).Exp = tmpexp;
             }

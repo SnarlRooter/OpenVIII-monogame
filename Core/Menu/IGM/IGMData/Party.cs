@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using System.Diagnostics.CodeAnalysis;
 
 namespace OpenVIII
@@ -155,7 +156,7 @@ namespace OpenVIII
 
                         r = dims.Font;
                         r.Offset((340), 42);
-                        ((IGMDataItem.Integer)ITEM[pos, 8]).Data = checked((int)c.Experience);
+                        ((IGMDataItem.Integer)ITEM[pos, 8]).Data = (int)Math.Min(c.Experience, int.MaxValue);
                         ((IGMDataItem.Integer)ITEM[pos, 8]).Pos = r;
 
                         r = dims.Font;
