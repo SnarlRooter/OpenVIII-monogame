@@ -11,56 +11,40 @@ namespace OpenVIII.IGMData.Group
     {
         #region Fields
 
-        /// <summary>
-        /// <para>The Speed the exp counts down.</para>
-        /// <para>Cannot be 0.</para>
-        /// The smaller the number the faster it'll Count down.
+       /// <summary>
+        /// Speed of EXP distribution countdown (milliseconds per tick).
+        /// Smaller value = faster countdown.
         /// </summary>
-        /// <list type="bullet">
-        /// <item>
-        /// <term>1</term>
-        /// <description>1000 per second</description>
-        /// </item>
-        /// <item>
-        /// <term>2</term>
-        /// <description>500 per second</description>
-        /// </item>
-        /// <item>
-        /// <term>3</term>
-        /// <description>333.333... per second</description>
-        /// </item>
-        /// <item>
-        /// <term>4</term>
-        /// <description>250 per second</description>
-        /// </item>
-        /// </list>
-        private const float speedOfEarningExp = 4;
+        private const float ExpDistributionSpeed = 4f;
 
         /// <summary>
-        /// Total exp left to earn.
+        /// Total EXP from defeated enemies being distributed to party.
         /// </summary>
-        private int _exp;
-
-        private int _totalExpAtStart;
+        private int _battleExpPool;
 
         /// <summary>
-        /// Are we in counting down exp mode.
+        /// Total EXP to distribute when countdown ends.
         /// </summary>
-        private bool countingDown;
-
-        private bool disposedValue;
+        private int _totalExpToDistribute;
 
         /// <summary>
-        /// The looping exp sound. Need to track the object here to stop the loop.
+        /// Are we in countdown mode distributing EXP.
         /// </summary>
-        private Audio EXPsnd;
+        private bool _isCountingDown;
+
+        private bool _disposedValue;
+
+        /// <summary>
+        /// The looping EXP sound. Need to track the object here to stop the loop.
+        /// </summary>
+        private Audio ExpSound;
 
         private Box header;
 
         /// <summary>
-        /// Keeps remainder between cycles
+        /// Time elapsed in current countdown cycle.
         /// </summary>
-        private double remaining;
+        private double TimeRemaining;
 
         #endregion Fields
 
@@ -77,19 +61,22 @@ namespace OpenVIII.IGMData.Group
 
         #region Properties
 
-        public int EXP
+        /// <summary>
+        /// Display EXP for countdown (what's shown on screen).
+        /// </summary>
+        public int DisplayExp
         {
-            get => _exp; set
+            get => _battleExpPool; set
             {
-                _exp = value;
-                RefreshEXP();
+                _battleExpPool = value;
+                RefreshDisplay();
             }
         }
 
-        public ConcurrentDictionary<Characters, int> EXPExtra { get; set; }
+        public ConcurrentDictionary<Characters, int> ExtraExp { get; set; }
         public bool NoEarnExp { get; internal set; } = false;
 
-        private bool remainEXP => (_exp > 0 || EXPExtra != null && EXPExtra.Count > 0);
+        private bool HasRemainingExp => (_battleExpPool > 0 || ExtraExp != null && ExtraExp.Count > 0);
 
         #endregion Properties
 
@@ -118,19 +105,19 @@ namespace OpenVIII.IGMData.Group
         public override bool Inputs_OKAY()
         {
             base.Inputs_OKAY();
-            if (!countingDown && remainEXP)
+            if (!_isCountingDown && HasRemainingExp)
             {
-                countingDown = true;
-                _totalExpAtStart = EXP;
-                if (EXPsnd == null)
-                    EXPsnd = Sound.Play(34, loop: true);
+                _isCountingDown = true;
+                _totalExpToDistribute = DisplayExp;
+                if (ExpSound == null)
+                    ExpSound = Sound.Play(34, loop: true);
                 return true;
             }
 
-            if (countingDown)
+            if (_isCountingDown)
             {
-                var totalExp = _totalExpAtStart;
-                
+                var totalExp = _totalExpToDistribute;
+
                 // First, count how many characters will actually receive EXP
                 var partyCount = 0;
                 foreach (var i in ITEM)
@@ -147,7 +134,7 @@ namespace OpenVIII.IGMData.Group
                     if (i.Damageable.GetCharacterData(out var c))
                     {
                         var expPerChar = totalExp / partyCount;
-                        if (EXPExtra != null && EXPExtra.TryGetValue(c.ID, out var bonus))
+                        if (ExtraExp != null && ExtraExp.TryGetValue(c.ID, out var bonus))
                             expPerChar += bonus;
                         // Directly update the global state - this is what PlayerExp.Update() reads!
                         c.Experience += (uint)expPerChar;
@@ -155,20 +142,20 @@ namespace OpenVIII.IGMData.Group
                 }
 
                 // Reset all tracking variables
-                _totalExpAtStart = 0;
-                _exp = 0;
-                EXPExtra = null;
-                countingDown = false;
-                
-                if (EXPsnd != null)
+                _totalExpToDistribute = 0;
+                _battleExpPool = 0;
+                ExtraExp = null;
+                _isCountingDown = false;
+
+                if (ExpSound != null)
                 {
-                    EXPsnd.Stop();
-                    EXPsnd = null;
+                    ExpSound.Stop();
+                    ExpSound = null;
                 }
 
                 // Force refresh the display to show updated values from Memory.State
                 Refresh();
-                
+
                 return true;
             }
             return false;
@@ -176,69 +163,100 @@ namespace OpenVIII.IGMData.Group
 
         public override bool Update()
         {
-            if (countingDown)
+            if (_isCountingDown)
             {
-                if (remainEXP)
+                if (HasRemainingExp)
                 {
-                    if ((remaining += Memory.ElapsedGameTime.TotalMilliseconds / speedOfEarningExp) > 1)
-                    {
-                        if (EXP > 0)
+                   if ((TimeRemaining += Memory.ElapsedGameTime.TotalMilliseconds / ExpDistributionSpeed) > 1)
                         {
-                            EXP -= (int)remaining;
-                        }
+                            if (DisplayExp > 0)
+                            {
+                                DisplayExp -= (int)TimeRemaining;
+                            }
                         else
                         {
                             var total = 0;
-                            if (EXPExtra != null)
+                            if (ExtraExp != null)
                             {
-                                foreach (var e in EXPExtra)
+                                foreach (var e in ExtraExp)
                                 {
                                     if (e.Value > 0)
-                                        total += (EXPExtra[e.Key] -= (int) remaining);
-                                    RefreshEXP();
+                                        total += (ExtraExp[e.Key] -= (int)TimeRemaining);
+                                    RefreshDisplay();
                                 }
 
                                 if (total <= 0)
-                                    EXPExtra = null;
+                                    ExtraExp = null;
                             }
                         }
-                        remaining -= (int)remaining;
+                       TimeRemaining -= (int)TimeRemaining;
                     }
                 }
                 else
                 {
-                    countingDown = false;
-                    EXPsnd.Stop();
-                    EXPsnd = null;
+                    DistributeRemainingExp();
+                    _isCountingDown = false;
+                    ExpSound.Stop();
+                    ExpSound = null;
                 }
             }
             return base.Update();
         }
 
+        private void DistributeRemainingExp()
+        {
+            if (_totalExpToDistribute > 0)
+            {
+                var partyCount = 0;
+                foreach (var i in ITEM)
+                {
+                    if (i?.Damageable != null && i.Damageable.GetCharacterData(out _))
+                        partyCount++;
+                }
+                if (partyCount <= 0) partyCount = 1;
+
+                foreach (var i in ITEM)
+                {
+                    if (i?.Damageable == null) continue;
+                    if (i.Damageable.GetCharacterData(out var c))
+                    {
+                        var expPerChar = _totalExpToDistribute / partyCount;
+                        if (ExtraExp != null && ExtraExp.TryGetValue(c.ID, out var bonus))
+                            expPerChar += bonus;
+                        c.Experience += (uint)expPerChar;
+                    }
+                }
+
+                _totalExpToDistribute = 0;
+                _battleExpPool = 0;
+                ExtraExp = null;
+            }
+        }
+
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (!_disposedValue)
             {
                 if (disposing)
                 {
-                    // TODO: dispose managed state (managed objects).
+                    DistributeRemainingExp();
                 }
 
                 // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
                 // TODO: set large fields to null.
                 header.Dispose();
-                disposedValue = true;
+                _disposedValue = true;
             }
         }
 
-        protected override void Init()
+      protected override void Init()
         {
             base.Init();
             Cursor_Status |= (Cursor_Status.Hidden | (Cursor_Status.Enabled | Cursor_Status.Static));
             header = new Box { Data = Strings.Name.EXP_received, Pos = new Rectangle(0, 0, CONTAINER.Width, 78), Title = Icons.ID.INFO, Options = Box_Options.Middle };
         }
 
-        private void RefreshEXP()
+     private void RefreshDisplay()
         {
             var partyCount = 0;
             foreach (var i in ITEM)
@@ -248,9 +266,9 @@ namespace OpenVIII.IGMData.Group
             foreach (var i in ITEM)
             {
                 if (i?.Damageable == null) continue;
-                var tmpexp = (int)(EXP / partyCount);
+                var tmpexp = (int)(DisplayExp / partyCount);
                 ((IGMData.PlayerExp)i).NoEarnExp = NoEarnExp;
-                ((IGMData.PlayerExp)i).Exp = tmpexp;
+                ((IGMData.PlayerExp)i).BattleExp = tmpexp;
             }
             header.Width = Width;
         }

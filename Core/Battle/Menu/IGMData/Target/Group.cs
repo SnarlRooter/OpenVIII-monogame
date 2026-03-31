@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -353,7 +353,35 @@ namespace OpenVIII.IGMData.Target
             bool Command02_MAGIC()
             {
                 NeededVariables(out var d, Magic.PositiveMagic);
-                Debug.WriteLine($"{Damageable.Name} casts {Magic.Name}({Magic.MagicDataID}) spell on { DebugMessageSuffix(d) }");
+                
+                if (d.First().GetType() == typeof(Saves.CharacterData) && Damageable.GetEnemy(out var enemy))
+                {
+                    var target = (Saves.CharacterData)d.First();
+                    
+                    // Get attacker's MAG stat and calculate damage using SpellPower
+                    var attackerMag = enemy.TotalStat(Kernel.Stat.MAG);
+                    var spellPower = Magic.SpellPower;
+                    var baseDamage = (attackerMag * spellPower) / 16;
+                    
+                    // Apply target's SPR resistance
+                    var targetSpr = target.TotalStat(Kernel.Stat.SPR);
+                    var sprReduction = (targetSpr + 100) / 200f;
+                    var finalDamage = (int)(baseDamage * sprReduction);
+                    
+                    // Apply critical hit multiplier if flag is set
+                    if (Magic.AttackFlags.HasFlag(Kernel.AttackFlags.Unk0X2))
+                        finalDamage = (int)(finalDamage * 1.5f);
+                    
+                    // Apply random variance (80-120%)
+                    var variance = Memory.Random.Next(80, 121) / 100f;
+                    finalDamage = (int)(finalDamage * variance);
+                    
+                    finalDamage = Math.Max(1, finalDamage);
+                    
+                    Debug.WriteLine($"{enemy.Name} casts {Magic.Name}({Magic.MagicDataID}) spell on {target.Name} for {finalDamage} damage");
+                    target.DealDamage(finalDamage, Magic.AttackType, Magic.AttackFlags);
+                }
+                
                 EndTurn();
                 return true;
             }

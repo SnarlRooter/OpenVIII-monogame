@@ -18,7 +18,7 @@ namespace OpenVIII
 
         private ConcurrentDictionary<Cards.ID, byte> _cards;
 
-        private int _exp;
+        private int _battleExpPool;
 
         private ConcurrentDictionary<Characters, int> _extraExp;
 
@@ -74,15 +74,15 @@ namespace OpenVIII
         /// </summary>
         public override void Refresh(Damageable damageable, bool backup = false) { }
 
-        public void Refresh(int exp, uint ap, ConcurrentDictionary<Characters, int> expextra, ConcurrentDictionary<byte, byte> items, ConcurrentDictionary<Cards.ID, byte> cards)
+        public void Refresh(int battleExp, uint ap, ConcurrentDictionary<Characters, int> extraExp, ConcurrentDictionary<byte, byte> items, ConcurrentDictionary<Cards.ID, byte> cards)
         {
             SetMode(Mode.Exp);
 
-            _extraExp = expextra;
-            _exp = exp;
+            _extraExp = extraExp;
+            _battleExpPool = battleExp;
             ((PlayerEXP)Data[Mode.Exp]).NoEarnExp = true;
-            ((PlayerEXP)Data[Mode.Exp]).EXP = _exp;
-            ((PlayerEXP)Data[Mode.Exp]).EXPExtra = _extraExp;
+            ((PlayerEXP)Data[Mode.Exp]).DisplayExp = _battleExpPool;
+            ((PlayerEXP)Data[Mode.Exp]).ExtraExp = _extraExp;
             ((PlayerEXP)Data[Mode.Exp]).NoEarnExp = false;
             _ap = ap;
             ((PartyAP)Data[Mode.AP]).AP = _ap;

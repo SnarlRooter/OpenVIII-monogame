@@ -12,29 +12,34 @@ namespace OpenVIII.IGMData
         #region Fields
 
         /// <summary>
-        /// <para>EXP Acquired</para>
-        /// <para>Current EXP</para>
-        /// <para>Next LEVEL</para>
+        /// EXP Acquired from battle.
         /// </summary>
-        private static FF8String _ecn;
+        private static FF8String _expAcquiredText;
 
-        private int _exp;
-        private byte _lvl;
+        /// <summary>
+        /// Character's current battle EXP display value.
+        /// </summary>
+        private int _characterBattleExp;
+
+        /// <summary>
+        /// Character's current level for display.
+        /// </summary>
+        private byte _currentLevel;
 
         #endregion Fields
 
         #region Properties
 
-        public int Exp
+        public int BattleExp
         {
-            get => _exp; set
+            get => _characterBattleExp; set
             {
                 if (Damageable != null)
                 {
-                    if (_exp == 0 || !Damageable.IsGameOver)
+                    if (_characterBattleExp == 0 || !Damageable.IsGameOver)
                     {
                         if (value < 0) value = 0;
-                        _exp = value;
+                        _characterBattleExp = value;
                     }
                     else if (Damageable.IsGameOver)
                         ITEM[0, 11].Show();
@@ -52,7 +57,7 @@ namespace OpenVIII.IGMData
         {
             Debug.Assert(partyPos >= 0 && partyPos <= 2);
             var r = Create<PlayerExp>(1, 12, new Box { Pos = pos ?? new Rectangle(35, 78 + partyPos * 150, 808, 150), Title = Icons.ID.NAME }, 1, 1, partypos: partyPos);
-            r._exp = 0;
+            r._characterBattleExp = 0;
             return r;
         }
 
@@ -72,21 +77,21 @@ namespace OpenVIII.IGMData
                     }
                 }
 
-                if (((Integer) ITEM[0, 4]).Data == _exp) return true;
+                if (((Integer)ITEM[0, 4]).Data == _characterBattleExp) return true;
                 ITEM[0, 11].Hide();
                 ((Text)ITEM[0, 0]).Data = c.Name;
-                ((Integer)ITEM[0, 4]).Data = _exp;
+                ((Integer)ITEM[0, 4]).Data = _characterBattleExp;
                 ((Integer)ITEM[0, 6]).Data = (int)Math.Min(c.Experience, int.MaxValue);
                 ((Integer)ITEM[0, 8]).Data = c.ExperienceToNextLevel;
-                var lvl = Damageable.Level;
+                var level = Damageable.Level;
 
-                if (lvl != _lvl && _lvl != 0 && !NoEarnExp)
+                if (level != _currentLevel && _currentLevel != 0 && !NoEarnExp)
                 {
                     //trigger level up message and sound effect
                     Sound.Play(0x28);
                     ITEM[0, 10].Show();
                 }
-                ((Integer)ITEM[0, 2]).Data = _lvl = lvl;
+                ((Integer)ITEM[0, 2]).Data = _currentLevel = level;
             }
             else
             {
@@ -103,17 +108,17 @@ namespace OpenVIII.IGMData
             base.Init();
             Saves.CharacterData c = null;
             if (Damageable != null && Damageable.GetCharacterData(out c))
-                _lvl = Damageable.Level;
-            if (_ecn == null)
-                _ecn = Strings.Name.EXP_Acquired + "\n" +
+                _currentLevel = Damageable.Level;
+            if (_expAcquiredText == null)
+                _expAcquiredText = Strings.Name.EXP_Acquired + "\n" +
                     Strings.Name.CurrentEXP + "\n" +
                     Strings.Name.NextLEVEL;
 
             ITEM[0, 0] = new Text { Pos = new Rectangle(SIZE[0].X, SIZE[0].Y, 0, 0) };
             ITEM[0, 1] = new Icon { Data = Icons.ID.Size_16x16_Lv_, Pos = new Rectangle(SIZE[0].X, SIZE[0].Y + 34, 0, 0), Palette = 13 };
-            ITEM[0, 2] = new Integer { Data = _lvl, Pos = new Rectangle(SIZE[0].X + 50, SIZE[0].Y + 38, 0, 0), Spaces = 4, NumType = Icons.NumType.SysFntBig };
-            ITEM[0, 3] = new Text { Data = _ecn, Pos = new Rectangle(SIZE[0].X + 390, SIZE[0].Y, 0, 0) };
-            ITEM[0, 4] = new Integer { Data = _exp, Pos = new Rectangle(SIZE[0].X + SIZE[0].Width - 160, SIZE[0].Y, 0, 0), Spaces = 7 };
+            ITEM[0, 2] = new Integer { Data = _currentLevel, Pos = new Rectangle(SIZE[0].X + 50, SIZE[0].Y + 38, 0, 0), Spaces = 4, NumType = Icons.NumType.SysFntBig };
+            ITEM[0, 3] = new Text { Data = _expAcquiredText, Pos = new Rectangle(SIZE[0].X + 390, SIZE[0].Y, 0, 0) };
+            ITEM[0, 4] = new Integer { Data = _characterBattleExp, Pos = new Rectangle(SIZE[0].X + SIZE[0].Width - 160, SIZE[0].Y, 0, 0), Spaces = 7 };
             ITEM[0, 5] = new Icon { Data = Icons.ID.P, Pos = new Rectangle(SIZE[0].X + SIZE[0].Width - 20, SIZE[0].Y, 0, 0) };
             ITEM[0, 6] = new Integer { Data = (int)Math.Min(c?.Experience ?? 0, int.MaxValue), Pos = new Rectangle(SIZE[0].X + SIZE[0].Width - 160, (int)(SIZE[0].Y + TextScale.Y * 12), 0, 0), Spaces = 7 };
             ITEM[0, 7] = new Icon { Data = Icons.ID.P, Pos = new Rectangle(SIZE[0].X + SIZE[0].Width - 20, (int)(SIZE[0].Y + TextScale.Y * 12), 0, 0) };

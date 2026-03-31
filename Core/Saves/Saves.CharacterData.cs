@@ -216,12 +216,15 @@ namespace OpenVIII
 
             public override int EXP => (int)Math.Min(Experience, int.MaxValue);
 
-        public uint Experience
+      public uint Experience
         {
-            get => _experience; set => _experience = value;
+            get => _experience; set => _experience += value;
         }
 
-            public ushort ExperienceToNextLevel => Level >= 100 ? (ushort)0 : (ushort)1000;
+       /// <summary>
+       /// EXP needed to reach next level based on character's EXP curve.
+       /// </summary>
+       public ushort ExperienceToNextLevel => Level >= 100 ? (ushort)0 : (ushort)(Memory.KernelBin.CharacterStats[ID].Exp((byte)(Level + 1)));
 
             public override byte HIT => checked((byte)TotalStat(Stat.HIT));
 
