@@ -350,41 +350,33 @@ namespace OpenVIII.IGMData.Target
                 return false;
             }
 
-            bool Command02_MAGIC()
-            {
-                NeededVariables(out var d, Magic.PositiveMagic);
-                
-                if (d.First().GetType() == typeof(Saves.CharacterData) && Damageable.GetEnemy(out var enemy))
-                {
-                    var target = (Saves.CharacterData)d.First();
-                    
-                    // Get attacker's MAG stat and calculate damage using SpellPower
-                    var attackerMag = enemy.TotalStat(Kernel.Stat.MAG);
-                    var spellPower = Magic.SpellPower;
-                    var baseDamage = (attackerMag * spellPower) / 16;
-                    
-                    // Apply target's SPR resistance
-                    var targetSpr = target.TotalStat(Kernel.Stat.SPR);
-                    var sprReduction = (targetSpr + 100) / 200f;
-                    var finalDamage = (int)(baseDamage * sprReduction);
-                    
-                    // Apply critical hit multiplier if flag is set
-                    if (Magic.AttackFlags.HasFlag(Kernel.AttackFlags.Unk0X2))
-                        finalDamage = (int)(finalDamage * 1.5f);
-                    
-                    // Apply random variance (80-120%)
-                    var variance = Memory.Random.Next(80, 121) / 100f;
-                    finalDamage = (int)(finalDamage * variance);
-                    
-                    finalDamage = Math.Max(1, finalDamage);
-                    
-                    Debug.WriteLine($"{enemy.Name} casts {Magic.Name}({Magic.MagicDataID}) spell on {target.Name} for {finalDamage} damage");
-                    target.DealDamage(finalDamage, Magic.AttackType, Magic.AttackFlags);
-                }
-                
-                EndTurn();
-                return true;
-            }
+bool Command02_MAGIC()
+{
+    NeededVariables(out var d, Magic.PositiveMagic);
+    
+    bool success = false;
+    Damageable attacker = null;
+    if (Damageable.GetCharacterData(out var charData)) attacker = charData;
+    else if (Damageable.GetEnemy(out var enemy)) attacker = enemy;
+
+    if (attacker != null && d.Length > 0)
+    {
+        var target = d[0];
+        var flags = AttackFlags.Attacker;
+        flags.SetAttackerData(attacker);
+        var combinedFlags = flags | Magic.AttackFlags;
+        
+        success = target.DealDamage(Magic.SpellPower, Magic.AttackType, combinedFlags);
+        
+        if (success)
+        {
+             Debug.WriteLine($"{attacker.Name} casts {Magic.Name}({Magic.MagicDataID}) spell on {target.Name}");
+        }
+    }
+    
+    EndTurn();
+    return success;
+}
 
             //bool Command03_GF() => throw new NotImplementedException();
 
