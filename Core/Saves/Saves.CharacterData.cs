@@ -218,7 +218,7 @@ namespace OpenVIII
 
       public uint Experience
         {
-            get => _experience; set => _experience += value;
+            get => _experience; set => _experience = value;
         }
 
        /// <summary>
